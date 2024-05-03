@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\EducationalQualification;
 use Illuminate\View\View;
 use App\Models\Psychologist;
 use Illuminate\Http\Request;
@@ -18,7 +19,9 @@ class HomeController extends BaseController
     public function about()
     {
         $psychologist = Psychologist::first();
-        return view('source.about-me', compact('psychologist'));
+        $qualifications = EducationalQualification::all();
+
+        return view('source.about-me', compact('psychologist', 'qualifications'));
     }
 
     public function category($title)

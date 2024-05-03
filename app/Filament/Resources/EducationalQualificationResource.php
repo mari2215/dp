@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EducationalQualificationResource\Pages;
-use App\Filament\Resources\EducationalQualificationResource\RelationManagers;
-use App\Models\EducationalQualification;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Models\EducationalQualification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use App\Filament\Resources\EducationalQualificationResource\Pages;
+use App\Filament\Resources\EducationalQualificationResource\RelationManagers;
 
 class EducationalQualificationResource extends Resource
 {
@@ -40,6 +41,9 @@ class EducationalQualificationResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1),
+                SpatieMediaLibraryFileUpload::make('image')
+                    ->disk('public')
+                    ->preserveFilenames()->multiple(),
             ]);
     }
 
