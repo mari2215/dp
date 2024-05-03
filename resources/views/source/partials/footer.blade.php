@@ -13,16 +13,15 @@
             <div class="col-md-5 text-md-right text-center mb-4">
                 <ul class="list-inline footer-list mb-0">
 
+                    @if(isset($facebook))
                     <li class="list-inline-item"><a href="{{$facebook}}"><i class="ti-facebook"></i></a></li>
-
-
 
                     <li class="list-inline-item"><a href="{{$instagram}}"><i class="ti-instagram"></i></a></li>
 
                     <li class="list-inline-item"><a href="{{$viber}}"><i class="bi bi-whatsapp"></i></a></li>
 
                     <li class="list-inline-item"><a href="{{$telegram}}"><i class="bi bi-telegram"></i></a></li>
-
+                    @endif
                 </ul>
             </div>
             <div class="col-12">
