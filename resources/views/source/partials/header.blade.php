@@ -85,11 +85,13 @@
               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages <i class="ti-angle-down ml-1"></i>
               </a>
               <div class="dropdown-menu">
+                @if (isset($categories))
                 @foreach ($categories as $category)
                 <a class="dropdown-item" href="/category/{{ $category->id }}">
                   {{ $category->title }}
                 </a>
                 @endforeach
+                @endif
               </div>
 
             </li>
