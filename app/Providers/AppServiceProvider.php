@@ -19,26 +19,26 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot()
-    {
-        $psychologist = Psychologist::first();
-        $globalVariables = [
-            'telegram' => "https://t.me/{{ $psychologist->telegram }}",
-            'viber' => "viber://chat?number={{ $psychologist->viber }}",
-            'facebook' => $psychologist->facebook,
-            'instagram' => $psychologist->instagram,
-        ];
+    // public function boot()
+    // {
+    //     $psychologist = Psychologist::first();
+    //     $globalVariables = [
+    //         'telegram' => "https://t.me/{{ $psychologist->telegram }}",
+    //         'viber' => "viber://chat?number={{ $psychologist->viber }}",
+    //         'facebook' => $psychologist->facebook,
+    //         'instagram' => $psychologist->instagram,
+    //     ];
 
-        $categories = Category::orderBy('position', 'asc')
-            ->withCount('activities')
-            ->get();
+    //     $categories = Category::orderBy('position', 'asc')
+    //         ->withCount('activities')
+    //         ->get();
 
-        view()->composer('source.partials.header', function ($view) use ($categories) {
-            $view->with('categories', $categories);
-        });
+    //     view()->composer('source.partials.header', function ($view) use ($categories) {
+    //         $view->with('categories', $categories);
+    //     });
 
-        view()->composer('source.partials.footer', function ($view) use ($globalVariables) {
-            $view->with($globalVariables);
-        });
-    }
+    //     view()->composer('source.partials.footer', function ($view) use ($globalVariables) {
+    //         $view->with($globalVariables);
+    //     });
+    // }
 }
