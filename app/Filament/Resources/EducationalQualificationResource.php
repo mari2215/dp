@@ -42,7 +42,10 @@ class EducationalQualificationResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1),
-                SpatieMediaLibraryFileUpload::make('image')->image()->imageEditor()->collection('educational-qualifications'),
+                SpatieMediaLibraryFileUpload::make('image')
+                    ->image()->imageEditor()->multiple()
+                    ->reorderable()
+                    ->collection('educational-qualifications'),
             ]);
     }
 
