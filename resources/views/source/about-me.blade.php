@@ -32,29 +32,22 @@
       @foreach ($qualifications as $qualification)
       <div class="col-lg-3 col-sm-6 text-center mb-4">
         <h3 class="border-bottom pb-3 mb-3 mx-2">{{ $qualification->degree }}</h3>
-        <p class="mb-2">{{ Carbon\Carbon::parse($qualification->start_date)->format('F Y') }} - {{ Carbon\Carbon::parse($qualification->graduation_date)->format('F Y') }}</p>
+        <p class="mb-2">
+          @php
+          $startDate = Carbon\Carbon::parse($qualification->start_date);
+          $graduationDate = Carbon\Carbon::parse($qualification->graduation_date);
+
+          $formattedStartDate = $startDate->locale('uk')->isoFormat('MMM Y');
+          $formattedGraduationDate = $graduationDate->locale('uk')->isoFormat('MMM Y');
+          @endphp
+
+          {{ $formattedStartDate }} - {{ $formattedGraduationDate }}
+        </p>
         <p>{{ $qualification->institution }}</p>
       </div>
       @endforeach
 
 
-      <div class="col-lg-3 col-sm-6 text-center mb-4">
-        <h3 class="border-bottom pb-3 mb-3 mx-2">MSc in Research Methodology</h3>
-        <p class="mb-2">September 2000 - May 2004</p>
-        <p>University Of California</p>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 text-center mb-4">
-        <h3 class="border-bottom pb-3 mb-3 mx-2">BEng Electronic Engineering</h3>
-        <p class="mb-2">September 2000 - May 2004</p>
-        <p>University Of California</p>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 text-center mb-4">
-        <h3 class="border-bottom pb-3 mb-3 mx-2">MSc in Research Methodology</h3>
-        <p class="mb-2">September 2000 - May 2004</p>
-        <p>University Of California</p>
-      </div>
 
     </div>
   </div>
