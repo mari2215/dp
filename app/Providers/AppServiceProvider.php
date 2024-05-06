@@ -7,6 +7,7 @@ use App\Models\Psychologist;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if (App::environment('production')) {
+        URL::forceRootUrl(Config::get('app.url'));
+        if (str_contains(Config::get('app.url'), 'https://')) {
             URL::forceScheme('https');
         }
 
