@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use App\Models\EducationalQualification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\EducationalQualificationResource\Pages;
 use App\Filament\Resources\EducationalQualificationResource\RelationManagers;
@@ -41,9 +42,7 @@ class EducationalQualificationResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1),
-                SpatieMediaLibraryFileUpload::make('image')
-                    ->disk('public')
-                    ->preserveFilenames()->multiple(),
+                SpatieMediaLibraryFileUpload::make('image')->image()->imageEditor()->collection('educational-qualifications'),
             ]);
     }
 
@@ -65,6 +64,7 @@ class EducationalQualificationResource extends Resource
                 Tables\Columns\TextColumn::make('position')
                     ->numeric()
                     ->sortable(),
+                SpatieMediaLibraryImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
