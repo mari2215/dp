@@ -42,10 +42,8 @@ class EducationalQualificationResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1),
-                SpatieMediaLibraryFileUpload::make('image')
-                    ->image()->imageEditor()->multiple()
-                    ->reorderable()
-                    ->collection('educational-qualifications'),
+                SpatieMediaLibraryFileUpload::make('images')
+                    ->image()->imageEditor()->directory('educational-qualifications')->collection('educational-qualifications'),
             ]);
     }
 
@@ -67,7 +65,6 @@ class EducationalQualificationResource extends Resource
                 Tables\Columns\TextColumn::make('position')
                     ->numeric()
                     ->sortable(),
-                SpatieMediaLibraryImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -13,12 +13,12 @@ class EducationalQualification extends Model implements HasMedia
 
     use InteractsWithMedia;
 
-    // Налаштування медіафайлів
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->useDisk('public');
     }
 
     protected $fillable = [

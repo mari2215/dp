@@ -10,6 +10,7 @@ use Filament\Forms\Components\Wizard\Step;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\PsychologistResource;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class CreatePsychologist extends CreateRecord
@@ -61,6 +62,8 @@ class CreatePsychologist extends CreateRecord
                         ->maxLength(255),
                     TextInput::make('video_url')
                         ->maxLength(255),
+                    SpatieMediaLibraryFileUpload::make('images')
+                        ->image()->imageEditor()->multiple()->directory('psychologist')->collection('psychologist')->reorderable(),
                 ]),
         ];
     }

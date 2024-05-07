@@ -2,20 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PsychologistResource\Pages;
-use App\Filament\Resources\PsychologistResource\RelationManagers;
-use App\Models\Psychologist;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Psychologist;
+use Filament\Resources\Resource;
 use Filament\Forms\Components\Tabs;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\MarkdownEditor;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PsychologistResource\Pages;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use App\Filament\Resources\PsychologistResource\RelationManagers;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class PsychologistResource extends Resource
@@ -59,12 +60,14 @@ class PsychologistResource extends Resource
                                 Forms\Components\TextInput::make('instagram')
                                     ->maxLength(255),
                             ]),
-                        Tabs\Tab::make('Відео')
+                        Tabs\Tab::make('Медіа')
                             ->schema([
                                 Forms\Components\MarkdownEditor::make('youtube_title')
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('video_url')
                                     ->maxLength(255),
+                                SpatieMediaLibraryFileUpload::make('images')
+                                    ->image()->imageEditor()->multiple()->directory('psychologist')->collection('psychologist'),
                             ]),
                     ]),
             ]);
