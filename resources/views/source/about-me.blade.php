@@ -8,12 +8,12 @@
     <div class="row align-items-center justify-content-center">
       <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
         <div class="image-wrapper post-slider">
-          @foreach ($psychologist->getMedia('psychologist') as $index => $image)
-          <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-            <img src="{{ $image->getUrl() }}" class="img-fluid h-10" alt="Image Description">
+          {{var_dump($psychologist->image)}}
+          @foreach ($psychologist->image as $image)
+          <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
+            <img src="{{ asset($image) }}" class="img-fluid h-10" alt="Image Description">
           </div>
           @endforeach
-
         </div>
       </div>
       <div class="col-lg-5 col-md-6">

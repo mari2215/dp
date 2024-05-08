@@ -6,6 +6,7 @@ use Filament\Actions;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms\Components\MarkdownEditor;
@@ -62,8 +63,12 @@ class CreatePsychologist extends CreateRecord
                         ->maxLength(255),
                     TextInput::make('video_url')
                         ->maxLength(255),
-                    SpatieMediaLibraryFileUpload::make('images')
-                        ->image()->imageEditor()->multiple()->directory('psychologist')->collection('psychologist')->reorderable(),
+                    FileUpload::make('image')
+                        ->disk('local')
+                        ->image() // Дозволяє завантаження зображень
+                        ->imageEditor() // Дозволяє редагування зображень
+                        ->multiple() // Дозволяє завантаження декількох файлів
+                        ->directory('images/psychologist')
                 ]),
         ];
     }

@@ -16,16 +16,25 @@ class Psychologist extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('images')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
-            ->useDisk('public');
+        // Налаштуйте колекцію `psychologist`
+        $this->addMediaCollection('psychologist')
+            ->useDisk('local') // Використовуйте диск `public`
+            ->singleFile(false) // Дозволяє зберігати декілька файлів
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']) // Дозволені типи файлів
+            ->directory('images'); // Вказує папку `images` для зберігання файлів
     }
+
+    protected $casts = [
+        'image' => 'array',
+    ];
+
     protected $fillable = [
         'name',
         'title',
         'subtitle',
         'phone',
         'email',
+        'image',
         'instagram',
         'telegram',
         'viber',

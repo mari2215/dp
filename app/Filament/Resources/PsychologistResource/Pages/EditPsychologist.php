@@ -6,6 +6,7 @@ use Filament\Actions;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\PsychologistResource;
@@ -67,8 +68,12 @@ class EditPsychologist extends EditRecord
                         ->maxLength(255),
                     TextInput::make('video_url')
                         ->maxLength(255),
-                    SpatieMediaLibraryFileUpload::make('images')
-                        ->image()->imageEditor()->multiple()->directory('psychologist')->collection('psychologist')->reorderable(),
+                    FileUpload::make('image')
+                        ->disk('local')
+                        ->image() // Дозволяє завантаження зображень
+                        ->imageEditor() // Дозволяє редагування зображень
+                        ->multiple()
+                        ->directory('images/psychologist')
                 ]),
         ];
     }

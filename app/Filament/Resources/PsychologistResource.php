@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\MarkdownEditor;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -66,8 +67,11 @@ class PsychologistResource extends Resource
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('video_url')
                                     ->maxLength(255),
-                                SpatieMediaLibraryFileUpload::make('images')
-                                    ->image()->imageEditor()->multiple()->directory('psychologist')->collection('psychologist'),
+                                FileUpload::make('image')
+                                    ->image() // Дозволяє завантаження зображень
+                                    ->imageEditor() // Дозволяє редагування зображень
+                                    ->multiple() // Дозволяє завантаження декількох файлів
+                                    ->directory('psychologist')
                             ]),
                     ]),
             ]);

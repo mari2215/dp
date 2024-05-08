@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,14 +46,15 @@ Route::middleware('auth')->group(function () {
 Route::get('/google/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
+Route::get('/images/{folder}/{name}',         [ImageController::class, 'view']);
 
 
 
 require __DIR__ . '/auth.php';
 
-Route::any(
-    '{query}',
-    function () {
-        return redirect('/');
-    }
-)->where('query', '.*');
+// Route::any(
+//     '{query}',
+//     function () {
+//         return redirect('/');
+//     }
+// )->where('query', '.*');
