@@ -6,11 +6,12 @@
 <section class="section-sm">
   <div class="container">
     <div class="row align-items-center justify-content-center">
+
       <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
-        <div class="image-wrapper post-slider">
+        <div class="post-slider">
           @foreach ($psychologist->image as $image)
-          <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
-            <img src="{{ asset($image) }}" class="img-fluid h-10" alt="Image Description">
+          <div class="card-img {{ $loop->index == 0 ? 'active' : '' }}">
+            <img src="{{ asset($image) }}" class="img-fluid" alt="Image Description">
           </div>
           @endforeach
         </div>
