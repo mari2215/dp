@@ -69,6 +69,7 @@ class CreatePsychologist extends CreateRecord
                         ->imageEditor() // Дозволяє редагування зображень
                         ->multiple() // Дозволяє завантаження декількох файлів
                         ->directory('images/psychologist')
+                        ->preserveFilenames()
                 ]),
         ];
     }

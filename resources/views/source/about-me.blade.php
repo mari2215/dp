@@ -8,7 +8,6 @@
     <div class="row align-items-center justify-content-center">
       <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
         <div class="image-wrapper post-slider">
-          {{var_dump($psychologist->image)}}
           @foreach ($psychologist->image as $image)
           <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
             <img src="{{ asset($image) }}" class="img-fluid h-10" alt="Image Description">
@@ -37,12 +36,9 @@
       @foreach ($qualifications as $qualification)
       <div class="col-lg-3 col-sm-6 text-center mb-4">
 
-        @foreach ($qualification->getMedia('educational-qualifications') as $image)
-
         <li class="list-inline-item">
-          <img class="img-fluid" src="{{ $image->getUrl() }}" alt="Image Description">
+          <img class="img-fluid" src="{{ asset($qualification->image) }}" alt="Image Description">
         </li>
-        @endforeach
 
         <h3 class="border-bottom pb-3 mb-3 mx-2">{{ $qualification->degree }}</h3>
         <p class="mb-2">

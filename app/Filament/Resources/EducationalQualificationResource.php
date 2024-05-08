@@ -8,6 +8,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Models\EducationalQualification;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
@@ -42,8 +43,12 @@ class EducationalQualificationResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1),
-                SpatieMediaLibraryFileUpload::make('images')
-                    ->image()->imageEditor()->directory('educational-qualifications')->collection('educational-qualifications'),
+                FileUpload::make('image')
+                    ->disk('public')
+                    ->image() // Дозволяє завантаження зображень
+                    ->imageEditor() // Дозволяє редагування зображень
+                    ->directory('images/educational_qualifications')
+                    ->preserveFilenames()
             ]);
     }
 

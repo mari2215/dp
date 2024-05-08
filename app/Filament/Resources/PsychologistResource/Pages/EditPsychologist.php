@@ -74,6 +74,7 @@ class EditPsychologist extends EditRecord
                         ->imageEditor() // Дозволяє редагування зображень
                         ->multiple()
                         ->directory('images/psychologist')
+                        ->preserveFilenames()
                 ]),
         ];
     }
