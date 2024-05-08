@@ -44,7 +44,7 @@ class EducationalQualificationResource extends Resource
                     ->numeric()
                     ->default(1),
                 FileUpload::make('image')
-                    ->disk('public')
+                    ->disk('local')
                     ->image() // Дозволяє завантаження зображень
                     ->imageEditor() // Дозволяє редагування зображень
                     ->directory('images/educational_qualifications')
