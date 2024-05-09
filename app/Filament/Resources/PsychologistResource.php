@@ -68,6 +68,8 @@ class PsychologistResource extends Resource
                                 Forms\Components\TextInput::make('video_url')
                                     ->maxLength(255),
                                 FileUpload::make('image')
+                                    ->disk('local')
+                                    ->reorderable()
                                     ->image() // Дозволяє завантаження зображень
                                     ->imageEditor() // Дозволяє редагування зображень
                                     ->multiple() // Дозволяє завантаження декількох файлів
