@@ -60,7 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 [
                     FilamentFullCalendarPlugin::make()
                         ->selectable()
-                        ->editable()
+                        ->editable(true)
                         ->locale('uk'),
                     \Hasnayeen\Themes\ThemesPlugin::make(),
                 ]
