@@ -45,6 +45,6 @@ class DeleteUnusedFiles extends Command
             ->reject(fn (string $file) => $file === '.gitignore')
             ->reject(fn (string $file) => in_array($file, $allFiles));
 
-        $storageFiles->each(fn ($file) => Storage::disk('public')->delete($file));
+        $storageFiles->each(fn ($file) => Storage::disk('local')->delete($file));
     }
 }
