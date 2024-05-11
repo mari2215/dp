@@ -19,36 +19,51 @@ use App\Filament\Resources\EducationalQualificationResource\RelationManagers;
 class EducationalQualificationResource extends Resource
 {
     protected static ?string $model = EducationalQualification::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationLabel = 'Кваліфікаційні сертифікати';
+    protected static ?string $pluralModelLabel = 'Кваліфікаційні сертифікати';
+    protected static ?string $modelLabel = 'Кваліфікаційний сертифікат';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('degree')
+                    ->label(__('Назва ступеня'))
                     ->required()
                     ->maxLength(100),
+
                 Forms\Components\TextInput::make('institution')
+                    ->label(__('Назва установи'))
                     ->required()
                     ->maxLength(200),
+
                 Forms\Components\DatePicker::make('start_date')
+                    ->label(__('Дата початку'))
                     ->required(),
+
                 Forms\Components\DatePicker::make('graduation_date')
+                    ->label(__('Дата закінчення'))
                     ->required(),
+
                 Forms\Components\Toggle::make('status')
+                    ->label(__('Статус'))
                     ->default(true)
                     ->required(),
+
                 Forms\Components\TextInput::make('position')
+                    ->label(__('Позиція'))
                     ->required()
                     ->numeric()
                     ->default(1),
+
                 FileUpload::make('image')
+                    ->label(__('Зображення'))
                     ->disk('local')
                     ->image() // Дозволяє завантаження зображень
                     ->imageEditor() // Дозволяє редагування зображень
                     ->directory('images/educational_qualifications')
-                    ->preserveFilenames()
+                    ->preserveFilenames(),
             ]);
     }
 
@@ -57,24 +72,39 @@ class EducationalQualificationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('degree')
+                    ->label(__('Назва ступеня'))
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('institution')
+                    ->label(__('Назва установи'))
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('start_date')
+                    ->label(__('Дата початку'))
                     ->date()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('graduation_date')
+                    ->label(__('Дата закінчення'))
                     ->date()
                     ->sortable(),
-                Tables\Columns\ToggleColumn::make('status'),
+
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label(__('Статус')),
+
                 Tables\Columns\TextColumn::make('position')
+                    ->label(__('Позиція'))
                     ->numeric()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('Дата створення'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('Дата оновлення'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

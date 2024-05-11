@@ -24,6 +24,9 @@ class PsychologistResource extends Resource
 {
     protected static ?string $model = Psychologist::class;
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
+    protected static ?string $navigationLabel = 'Персональні дані';
+    protected static ?string $pluralModelLabel = 'Персональні дані';
+    protected static ?string $modelLabel = 'Персональні дані';
 
     public static function form(Form $form): Form
     {

@@ -73,7 +73,11 @@ class CalendarWidget extends FullCalendarWidget
                         $form->fill([
                             'name' => $record->name,
                             'start' => $arguments['event']['start'] ?? $record->start,
-                            'end' => $arguments['event']['end'] ?? $record->end
+                            'end' => $arguments['event']['end'] ?? $record->end,
+                            'location' => $arguments['event']['location'] ?? $record->location,
+                            'price' => $arguments['event']['price'] ?? $record->price,
+                            'category_id' => $arguments['event']['category_id'] ?? $record->category_id,
+                            'description' => $arguments['event']['description'] ?? $record->description,
                         ]);
                     }
                 ),

@@ -21,6 +21,10 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Події';
+    protected static ?string $pluralModelLabel = 'Події';
+    protected static ?string $modelLabel = 'Подію';
+
     public static function form(Form $form): Form
     {
         return $form

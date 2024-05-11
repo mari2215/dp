@@ -54,7 +54,9 @@
 						<img src="https://picsum.photos/80/80" alt="" class="card-img-top rounded-0">
 						<div class="card-body">
 							<h4 class="text-uppercase mb-3">{{$activity->title}}</h4>
-							<!-- <p class="h4 text-muted font-weight-light mb-3">{!!$activity->description!!}</p> -->
+
+							<p class="h4 text-muted font-weight-light mb-3">{!! str_replace('storage/', '', str_replace('storage//', 'storage/', $activity->description)) !!}</p>
+
 							<p class="h4">{{$activity->price}} ₴</p>
 						</div>
 					</a>

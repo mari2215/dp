@@ -17,32 +17,45 @@ use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 class ActivityResource extends Resource
 {
     protected static ?string $model = Activity::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-fire';
+    protected static ?string $navigationLabel = 'Активності';
+    protected static ?string $pluralModelLabel = 'Активності';
+    protected static ?string $modelLabel = 'Активність';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('category_id')
+                    ->label(__('Категорія'))
                     ->relationship('category', 'title')
                     ->preload()
                     ->required(),
+
                 Forms\Components\TextInput::make('price')
+                    ->label(__('Ціна'))
                     ->numeric()
                     ->prefix('₴'),
+
                 Forms\Components\TextInput::make('title')
+                    ->label(__('Назва'))
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('position')
+                    ->label(__('Позиція'))
                     ->required()
                     ->numeric()
                     ->default(1),
+
                 TinyEditor::make('description')
-                    ->fileAttachmentsDisk('public')
-                    ->fileAttachmentsVisibility('public')
-                    ->fileAttachmentsDirectory('uploads'),
+                    ->label(__('Опис'))
+                    ->fileAttachmentsDisk('local')
+                    ->fileAttachmentsVisibility('private')
+                    ->fileAttachmentsDirectory('images/uploads'),
+
                 Forms\Components\Toggle::make('status')
+                    ->label(__('Статус'))
                     ->required()
                     ->default(true),
             ]);
