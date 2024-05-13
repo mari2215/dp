@@ -51,8 +51,11 @@ class ActivityResource extends Resource
                 TinyEditor::make('description')
                     ->label(__('Опис'))
                     ->fileAttachmentsDisk('local')
-                    ->fileAttachmentsVisibility('private')
+                    ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('images/uploads'),
+
+                TinyEditor::make('content')->fileAttachmentsDisk('local')->fileAttachmentsVisibility('public')->fileAttachmentsDirectory('uploads'),
+
 
                 Forms\Components\Toggle::make('status')
                     ->label(__('Статус'))

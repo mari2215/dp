@@ -23,8 +23,11 @@ Route::get('/', function () {
 
 
 Route::get('/about', [HomeController::class, 'about']);
+Route::get('/events', [HomeController::class, 'events']);
+Route::get('/event/{id}', [HomeController::class, 'event']);
 Route::get('/category', [HomeController::class, 'category']);
 Route::get('/category/{id}', [HomeController::class, 'show']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -55,6 +58,6 @@ require __DIR__ . '/auth.php';
 // Route::any(
 //     '{query}',
 //     function () {
-//         return redirect('/');
+//         return view('source.404');
 //     }
 // )->where('query', '.*');

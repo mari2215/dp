@@ -41,7 +41,10 @@ class EventResource extends Resource
                     ->required(),
                 TinyEditor::make('description')
                     ->maxLength(65535)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->fileAttachmentsDisk('local')
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('images/uploads'),
                 Forms\Components\TextInput::make('location')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('price')

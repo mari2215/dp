@@ -78,7 +78,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="/events">Розклад подій</a>
             </li>
 
             <li class="nav-item dropdown">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\EducationalQualification;
+use App\Models\Event;
 use Illuminate\View\View;
 use App\Models\Psychologist;
 use Illuminate\Http\Request;
@@ -31,6 +32,34 @@ class HomeController extends BaseController
             ->firstOrFail();
 
         return view('source.author-single', compact('category'));
+    }
+
+    public function event($id)
+    {
+        $event = Event::where('id', $id)->first();
+        if (!$event) {
+            return abort(404);
+        }
+        return view('source.event', compact('event'));
+    }
+
+
+    public function events(Request $request)
+    {
+        $rec = Event::all();
+        $events = [];
+        foreach ($rec as $ev) {
+            $events[] = [
+                'id'    => $ev->id,
+                'title' => $ev->name,
+                'start' => $ev->start,
+                'end'   => $ev->end,
+                'backgroundColor' => '#00d97d',
+                'url' => '/event/' . $ev->id . '',
+            ];
+        }
+
+        return view('source.events', compact('events'));
     }
 
     public function show($id)
