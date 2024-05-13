@@ -40,7 +40,7 @@
       contentHeight: 780,
       dayMaxEvents: true,
 
-      events: json($events), // eslint-disable-line
+      events: @json($events), // eslint-disable-line
 
     });
     calendar.render();
