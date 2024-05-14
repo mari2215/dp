@@ -31,7 +31,6 @@ class DeleteUnusedFiles extends Command
         $psychologistImages = Psychologist::pluck('image')->toArray();
         $psychologistFiles = [];
         foreach ($psychologistImages as $imagesJson) {
-            $imagesArray = json_decode($imagesJson, true);
             if (is_array($imagesArray)) {
                 $psychologistFiles = array_merge($psychologistFiles, $imagesArray);
             }
