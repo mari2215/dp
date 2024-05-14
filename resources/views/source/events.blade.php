@@ -23,9 +23,9 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       headerToolbar: {
-        left: 'prev,next,today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,listMonth',
+        left: 'prev,next',
+        center: '',
+        right: 'title,dayGridMonth,listMonth',
       },
       buttonText: {
         today: 'Сьогодні',
@@ -39,7 +39,8 @@
       height: 600,
       contentHeight: 780,
       dayMaxEvents: true,
-
+      expandRows: true,
+      firstDay: 1,
       events: @json($events), // eslint-disable-line
 
     });
