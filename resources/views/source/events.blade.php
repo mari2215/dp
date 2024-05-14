@@ -3,7 +3,13 @@
 @section('content')
 @include('source.partials.blocks.page-header', ['title' => 'About Me', 'page' => 'About Me'])
 
-
+<style>
+  .fc .fc-button-primary {
+    color: black;
+    background-color: #00d97d !important;
+    border-color: #FFFFFF !important;
+  }
+</style>
 <!-- <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'> -->
 
@@ -38,7 +44,7 @@
       locale: initialLocaleCode,
       height: 600,
       contentHeight: 780,
-      dayMaxEvents: true,
+      dayMaxEvents: 2,
       expandRows: true,
       firstDay: 1,
       events: @json($events), // eslint-disable-line

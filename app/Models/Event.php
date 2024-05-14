@@ -20,6 +20,10 @@ class Event extends Model
         'status',
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

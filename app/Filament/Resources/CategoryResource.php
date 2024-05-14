@@ -29,17 +29,21 @@ class CategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(50),
+                    ->maxLength(50)
+                    ->label(__('Заголовок')),
                 Forms\Components\TextInput::make('subtitle')
-                    ->maxLength(90),
+                    ->maxLength(90)
+                    ->label(__('Підзаголовок')),
                 Forms\Components\TextInput::make('position')
                     ->required()
                     ->numeric()
-                    ->default(1),
+                    ->default(1)
+                    ->label(__('Позиція')),
                 Forms\Components\Toggle::make('status')
                     ->required()
-                    ->default(true),
-                TinyEditor::make('description'),
+                    ->default(true)
+                    ->label(__('Статус')),
+                TinyEditor::make('description')->label(__('Опис'))->columnSpanFull(),
             ]);
     }
 
@@ -48,14 +52,17 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Заголовок')),
                 Tables\Columns\TextColumn::make('subtitle')
-                    ->searchable(),
-                Tables\Columns\ToggleColumn::make('status'),
-
+                    ->searchable()
+                    ->label(__('Підзаголовок')),
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label(__('Статус')),
                 Tables\Columns\TextColumn::make('position')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label(__('Позиція')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

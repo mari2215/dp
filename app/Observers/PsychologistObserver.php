@@ -9,7 +9,7 @@ class PsychologistObserver
 {
     public function saved(Psychologist $psychologist): void
     {
-        if ($psychologist->isDirty('image')) {
+        if (($psychologist->isDirty('image')) && (!empty($psychologist->getOriginal('image')))) {
             $originalFieldContents = $psychologist->getOriginal('image');
             $newFieldContents = $psychologist->image;
 

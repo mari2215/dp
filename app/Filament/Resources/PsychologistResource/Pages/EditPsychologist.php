@@ -70,6 +70,7 @@ class EditPsychologist extends EditRecord
                         ->maxLength(255),
                     FileUpload::make('image')
                         ->disk('local')
+                        ->reorderable()
                         ->image() // Дозволяє завантаження зображень
                         ->imageEditor() // Дозволяє редагування зображень
                         ->multiple()

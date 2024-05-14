@@ -32,53 +32,46 @@ class PsychologistResource extends Resource
     {
         return $form
             ->schema([
-                Tabs::make('Tabs')
-                    ->tabs([
-                        Tabs\Tab::make('Контактна інформація')
-                            ->schema([
-                                TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('title')
-                                    ->maxLength(255),
-                                TinyEditor::make('subtitle')
-                                    ->maxLength(255),
-                                TextInput::make('phone')
-                                    ->tel()
-                                    ->maxLength(255),
-                                TextInput::make('email')
-                                    ->email()
-                                    ->maxLength(255),
-                            ]),
-                        Tabs\Tab::make('Месенджери')
-                            ->schema([
-                                Forms\Components\TextInput::make('telegram')
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('viber')
-                                    ->maxLength(255),
-                            ]),
-                        Tabs\Tab::make('Соціальні мережі')
-                            ->schema([
-                                Forms\Components\TextInput::make('facebook')
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('instagram')
-                                    ->maxLength(255),
-                            ]),
-                        Tabs\Tab::make('Медіа')
-                            ->schema([
-                                Forms\Components\MarkdownEditor::make('youtube_title')
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('video_url')
-                                    ->maxLength(255),
-                                FileUpload::make('image')
-                                    ->disk('local')
-                                    ->reorderable()
-                                    ->image() // Дозволяє завантаження зображень
-                                    ->imageEditor() // Дозволяє редагування зображень
-                                    ->multiple() // Дозволяє завантаження декількох файлів
-                                    ->directory('psychologist')
-                            ]),
-                    ]),
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->label(__('Імя')),
+                TextInput::make('title')
+                    ->maxLength(255)
+                    ->label(__('Заголовок')),
+                TinyEditor::make('subtitle')
+                    ->maxLength(255)
+                    ->label(__('Підзаголовок')),
+                TextInput::make('phone')
+                    ->tel()
+                    ->maxLength(255)
+                    ->label(__('Телефон')),
+                TextInput::make('email')
+                    ->email()
+                    ->maxLength(255)
+                    ->label(__('Пошта')),
+                Forms\Components\TextInput::make('telegram')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('viber')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('facebook')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('instagram')
+                    ->maxLength(255),
+                Forms\Components\MarkdownEditor::make('youtube_title')
+                    ->maxLength(255)
+                    ->label(__('Заголовок для відео')),
+                Forms\Components\TextInput::make('video_url')
+                    ->maxLength(255)
+                    ->label(__('Посилання на відео')),
+                FileUpload::make('image')
+                    ->disk('local')
+                    ->reorderable()
+                    ->image() // Дозволяє завантаження зображень
+                    ->imageEditor() // Дозволяє редагування зображень
+                    ->multiple() // Дозволяє завантаження декількох файлів
+                    ->directory('images/psychologist')
+                    ->label(__('Зображення'))
             ]);
     }
 
@@ -87,27 +80,14 @@ class PsychologistResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Імя')),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Заголовок')),
                 Tables\Columns\TextColumn::make('subtitle')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('telegram')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('viber')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('facebook')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('instagram')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('youtube_title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('video_url')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Підзаголовок')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

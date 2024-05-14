@@ -15,6 +15,7 @@ use Saade\FilamentFullCalendar\Actions\EditAction;
 use Saade\FilamentFullCalendar\Actions\DeleteAction;
 use App\Filament\Resources\EventResource\RelationManagers;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class CalendarWidget extends FullCalendarWidget
@@ -55,9 +56,12 @@ class CalendarWidget extends FullCalendarWidget
                         ->columnSpanFull(),
                     TextInput::make('location')
                         ->maxLength(255),
-                    TextInput::make('price')
-                        ->numeric()
-                        ->prefix('$'),
+                    MoneyInput::make('price')
+                        ->currency('UAH')
+                        ->minValue(0)
+                        ->maxValue(10000)
+                        ->label(__('Ціна'))
+                        ->prefix('₴'),
                     Toggle::make('status')
                         ->required(),
                 ]),

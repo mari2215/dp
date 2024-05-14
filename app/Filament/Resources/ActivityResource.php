@@ -8,9 +8,12 @@ use App\Models\Activity;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ActivityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use App\Filament\Resources\ActivityResource\RelationManagers;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
@@ -32,9 +35,11 @@ class ActivityResource extends Resource
                     ->preload()
                     ->required(),
 
-                Forms\Components\TextInput::make('price')
-                    ->label(__('Ціна'))
+                TextInput::make('price')
                     ->numeric()
+                    ->minValue(0)
+                    ->maxValue(10000)
+                    ->label(__('Ціна'))
                     ->prefix('₴'),
 
                 Forms\Components\TextInput::make('title')
@@ -50,12 +55,10 @@ class ActivityResource extends Resource
 
                 TinyEditor::make('description')
                     ->label(__('Опис'))
+                    ->columnSpanFull()
                     ->fileAttachmentsDisk('local')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('images/uploads'),
-
-                TinyEditor::make('content')->fileAttachmentsDisk('local')->fileAttachmentsVisibility('public')->fileAttachmentsDirectory('uploads'),
-
 
                 Forms\Components\Toggle::make('status')
                     ->label(__('Статус'))
@@ -70,16 +73,21 @@ class ActivityResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('category.title')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label(__('Тип')),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->money()
-                    ->sortable(),
-                Tables\Columns\ToggleColumn::make('status'),
+                    ->searchable()
+                    ->label(__('Назва')),
+                MoneyColumn::make('price')
+                    ->currency('UAH')
+                    ->locale('uk')
+                    ->label(__('Ціна')),
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label(__('Статус')),
                 Tables\Columns\TextColumn::make('position')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label(__('Позиція')),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
