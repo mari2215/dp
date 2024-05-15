@@ -6,35 +6,44 @@
     {{ session('status') }}
 </div>
 @endif
-
-
-<div class="container col-lg-8 my-3">
-
-
-
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-
-            <div class="content mb-5">
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+</style>
+@if(session('msg'))
+<div class="alert alert-danger" role="alert" style="position: fixed; top: 15%; left:30%; z-index: 1100;">
+    {{session('msg')}}
+</div>
+@endif
+<div class="container my-3 mb-5">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6 col-sm-6">
+            <center><img src="{{ asset('theme/theme/images/logos/Charm.png')}}" class="img-fluid" style="max-width: 80%; height: auto;" alt="Phone image">
                 <center>
-                    <h2 id="we-would-love-to-hear-from-you">Login&hellip;.</h2>
-                </center>
-            </div>
-
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 col-sm-6">
+            <h2>Увійти</h2>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <div class="form-group">
-                    <label for="email">Your Email Address (Required)</label>
-                    <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <!-- Email input -->
+                <div data-mdb-input-init class="form-group">
+                    <input type="email" id="form1Example13" name="email" class="block mt-1 w-full form-control @error('email') is-invalid @enderror" placeholder="Пошта" />
+
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" />
+
+                <!-- Password input -->
+                <div data-mdb-input-init class="form-group">
+                    <input type="password" id="form1Example23" name="password" class="block mt-1 w-full form-control @error('password') is-invalid @enderror" placeholder="Пароль" />
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -42,28 +51,38 @@
                     @enderror
                 </div>
 
-                <div class="mb-3 full-width d-flex justify-content-between">
+                <div class="d-flex justify-content-around align-items-center mb-4">
+                    <!-- Checkbox -->
                     <div class="form-check">
-                        <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                        <label class="form-check-label" for="remember_me">{{ __('Remember me') }}</label>
+                        <input class="form-check-input" type="checkbox" value="" id="form1Example3" name="remember" checked />
+                        <label class="form-check-label" for="form1Example3"> Запам'ятати </label>
                     </div>
-                    <div>
-                        @if (Route::has('password.request'))
-                        <a class="" href="{{ route('password.request') }}">
-                            {{ __('Forgot your password?') }}
-                        </a>
-                        @endif
-                    </div>
+
+                    @if (Route::has('password.request'))
+                    <a class="" href="{{ route('password.request') }}">
+                        {{ __('Забули пароль?') }}
+                    </a>
+                    @endif
                 </div>
 
-                <center><button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
-                    <br><br>
-                    <a href="{{ route('google.redirect') }}" class="">Login with Google</a>
-                </center>
+                <!-- Submit button -->
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Ввійти</button>
 
+                <div class="divider d-flex align-items-center my-4">
+                    <p class="text-center fw-bold mx-3 mb-0 text-muted">АБО</p>
+                </div>
+
+                <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="#!" role="button">
+                    <i class="ti-facebook"></i> Продовжити через Facebook
+                </a>
+                <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="{{ route('google.redirect') }}" role="button">
+                    <i class="ti-google"></i> Продовжити через Google</a>
             </form>
+
+
         </div>
     </div>
 
 </div>
+
 @endsection

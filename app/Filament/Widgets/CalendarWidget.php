@@ -56,8 +56,8 @@ class CalendarWidget extends FullCalendarWidget
                         ->columnSpanFull(),
                     TextInput::make('location')
                         ->maxLength(255),
-                    MoneyInput::make('price')
-                        ->currency('UAH')
+                    TextInput::make('price')
+                        ->numeric()
                         ->minValue(0)
                         ->maxValue(10000)
                         ->label(__('Ціна'))
