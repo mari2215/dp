@@ -7,10 +7,16 @@
             padding-top: 120px;
         }
     }
+
+    @media (max-width: 992px) {
+        .main {
+            padding-top: 80px;
+        }
+    }
 </style>
 
 <body>
-    <div class="main" style="min-height: 90vh; padding-top: 80px;">
+    <div class="main" style="min-height: 90vh; ">
         @yield('content')
     </div>
 </body>

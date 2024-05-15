@@ -15,11 +15,7 @@
         background: #eee;
     }
 </style>
-@if(session('msg'))
-<div class="alert alert-danger" role="alert" style="position: fixed; top: 15%; left:30%; z-index: 1100;">
-    {{session('msg')}}
-</div>
-@endif
+
 <div class="container my-3 mb-5">
     <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6 col-sm-6">
@@ -58,11 +54,12 @@
                         <label class="form-check-label" for="form1Example3"> Запам'ятати </label>
                     </div>
 
-                    @if (Route::has('password.request'))
+                    <!-- @if (Route::has('password.request'))
                     <a class="" href="{{ route('password.request') }}">
                         {{ __('Забули пароль?') }}
                     </a>
-                    @endif
+                    @endif -->
+                    <a href="/register">Немає акаунта?</a>
                 </div>
 
                 <!-- Submit button -->
@@ -72,9 +69,6 @@
                     <p class="text-center fw-bold mx-3 mb-0 text-muted">АБО</p>
                 </div>
 
-                <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="#!" role="button">
-                    <i class="ti-facebook"></i> Продовжити через Facebook
-                </a>
                 <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="{{ route('google.redirect') }}" role="button">
                     <i class="ti-google"></i> Продовжити через Google</a>
             </form>
