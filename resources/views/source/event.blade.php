@@ -58,56 +58,38 @@
 
       <div class="col-lg-9 col-md-12">
         <div class="mb-5 border-top mt-4 pt-5">
-          <h3 class="mb-4">Comments</h3>
+          <h3 class="mb-4">Коментарі</h3>
 
-          <div class="media d-block d-sm-flex mb-4 pb-4">
-            <a class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
-              <img src="images/post/user-01.jpg" class="mr-3 rounded-circle" alt="">
-            </a>
-            <div class="media-body">
-              <a href="#!" class="h4 d-inline-block mb-3">Alexender Grahambel</a>
+          @if(!isset($comments) || $comments->isEmpty())
+          <p>Коментарі відсутні 🤖</p>
+          @else
+          @include('comments.comments', ['comments' => $comments, 'level' => 0])
+          @endif
 
-              <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-
-              <span class="text-black-800 mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
-              <a class="text-primary font-weight-600" href="#!">Reply</a>
-            </div>
-          </div>
-          <div class="media d-block d-sm-flex">
-            <div class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
-              <img class="mr-3" src="images/post/arrow.png" alt="">
-              <a href="#!"><img src="images/post/user-02.jpg" class="mr-3 rounded-circle" alt=""></a>
-            </div>
-            <div class="media-body">
-              <a href="#!" class="h4 d-inline-block mb-3">Nadia Sultana Tisa</a>
-
-              <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-
-              <span class="text-black-800 mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
-              <a class="text-primary font-weight-600" href="#!">Reply</a>
-            </div>
-          </div>
         </div>
 
         <div>
-          <h3 class="mb-4">Leave a Reply</h3>
-          <form method="POST">
+          <h3 class="mb-4">Залиште коментар</h3>
+          <form method="POST" action="{{ url('comment/'.$event->id) }}" id="comment-form">
+            @csrf
             <div class="row">
               <div class="form-group col-md-12">
-                <textarea class="form-control shadow-none" name="comment" rows="7" required></textarea>
-              </div>
-              <div class="form-group col-md-4">
-                <input class="form-control shadow-none" type="text" placeholder="Name" required>
-              </div>
-              <div class="form-group col-md-4">
-                <input class="form-control shadow-none" type="email" placeholder="Email" required>
-              </div>
-              <div class="form-group col-md-4">
-                <input class="form-control shadow-none" type="url" placeholder="Website">
-                <p class="font-weight-bold valid-feedback">OK! You can skip this field.</p>
+                <input type="hidden" name="event_id" value="{{ $event->id }}">
+                <input type="hidden" name="parent_id">
+                @guest
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="form-group">
+                    <input class="form-control shadow-none" type="text" name="username" placeholder="Ім'я" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control shadow-none" type="email" name="email" placeholder="Електронна адреса" required>
+                  </div>
+                </div>
+                @endguest
+                <textarea class="form-control shadow-none" name="comment" rows="7" placeholder="Сочиніть коментар..." required></textarea>
               </div>
             </div>
-            <button class="btn btn-primary" type="submit">Comment Now</button>
+            <button class="btn btn-primary" type="submit">Надіслати</button>
           </form>
         </div>
       </div>
@@ -116,4 +98,24 @@
   </div>
 </section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var replyButtons = document.querySelectorAll('.reply-btn');
+    var form = document.querySelector('#comment-form');
+
+    replyButtons.forEach(function(button) {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var parentId = this.getAttribute('data-parent-id');
+        var userId = document.getElementById('data-user-id').getAttribute('data-user-id');
+        console.log('Parent ID:', parentId);
+        console.log('User ID:', userId);
+        var parentIdInput = form.querySelector('input[name="parent_id"]');
+        parentIdInput.value = parentId;
+        var commentInput = form.querySelector('textarea[name="comment"]');
+        commentInput.value = '@' + userId + ', ';
+      });
+    });
+  });
+</script>
 @endsection

@@ -39,9 +39,12 @@ class PsychologistResource extends Resource
                 TextInput::make('title')
                     ->maxLength(255)
                     ->label(__('Заголовок')),
-                TinyEditor::make('subtitle')
-                    ->maxLength(255)
-                    ->label(__('Підзаголовок')),
+                TinyEditor::make('description')
+                    ->label(__('Опис'))
+                    ->columnSpanFull()
+                    ->fileAttachmentsDisk('local')
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('images/uploads'),
                 TextInput::make('phone')
                     ->tel()
                     ->maxLength(255)

@@ -10,17 +10,32 @@ class PsychologistObserver
     public function saved(Psychologist $psychologist): void
     {
         if (($psychologist->isDirty('image')) && (!empty($psychologist->getOriginal('image')))) {
-            $originalFieldContents = $psychologist->getOriginal('image');
+            $prevImages = $psychologist->getOriginal('image');
             $newFieldContents = $psychologist->image;
 
-            if (is_array($originalFieldContents))
-                $originalFieldContentsDecoded = $originalFieldContents;
+            if (is_array($prevImages))
+                $prevImagesArray = $prevImages;
             else
-                $originalFieldContentsDecoded = json_decode($originalFieldContents);
+                $prevImagesArray = json_decode($prevImages);
 
-            $originalFieldContentsDecoded = array_diff($originalFieldContentsDecoded, $newFieldContents);
+            $prevImagesArray = array_diff($prevImagesArray, $newFieldContents);
 
-            foreach ($originalFieldContentsDecoded as $originalFile)
+            foreach ($prevImagesArray as $originalFile)
+                Storage::disk('local')->delete($originalFile);
+        }
+
+        if (($psychologist->isDirty('subtitle')) && (!empty($psychologist->getOriginal('subtitle')))) {
+            $prevImages = $psychologist->getOriginal('subtitle');
+            $newFieldContents = $psychologist->subtitle;
+
+            $prevImagesArray = $this->masivizator($prevImages);
+            $newImagesArray = $this->masivizator($newFieldContents);
+
+            $prevImagesArray = array_diff($prevImagesArray, $newImagesArray);
+
+            // dd($prevImagesArray);
+
+            foreach ($prevImagesArray as $originalFile)
                 Storage::disk('local')->delete($originalFile);
         }
     }
@@ -33,11 +48,11 @@ class PsychologistObserver
             $fieldContentsDecoded = $psychologist->image;
 
             if (is_array($fieldContentsDecoded))
-                $originalFieldContentsDecoded = $fieldContentsDecoded;
+                $prevImagesArray = $fieldContentsDecoded;
             else
-                $originalFieldContentsDecoded = json_decode($fieldContentsDecoded);
+                $prevImagesArray = json_decode($fieldContentsDecoded);
 
-            foreach ($originalFieldContentsDecoded as $file)
+            foreach ($prevImagesArray as $file)
                 Storage::disk('local')->delete($file);
         }
     }
@@ -46,8 +61,15 @@ class PsychologistObserver
      */
     public function created(Psychologist $psychologist): void
     {
-        //
+        if ($psychologist->isDirty('subtitle')) {
+            $newFieldContents = $psychologist->subtitle;
+            $newFieldContents = str_replace('../',  '', $newFieldContents);
+            $newFieldContents = str_replace('storage/',  'images/uploads/', $newFieldContents);
+            $psychologist->subtitle = $newFieldContents;
+            $psychologist->save();
+        }
     }
+
 
     /**
      * Handle the Psychologist "updated" event.
@@ -79,5 +101,29 @@ class PsychologistObserver
     public function forceDeleted(Psychologist $psychologist): void
     {
         //
+    }
+
+    private function masivizator($text)
+    {
+        $flag = false;
+        $image = '';
+        $img_arr = [];
+        for ($i = 0; $i < strlen($text) - 1; $i++) {
+            if (substr($text, $i, 5) == 'src="') {
+                $flag = true;
+                $i += 13;
+            }
+
+            if ($flag)
+                $image .= substr($text, $i, 1);
+
+            if (substr($text, $i, 5) == '" alt') {
+                $flag = false;
+                $img_arr[] = $image;
+                $image = '';
+            }
+        }
+
+        return $img_arr;
     }
 }

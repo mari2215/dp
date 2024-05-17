@@ -50,8 +50,7 @@ Route::get('/google/redirect', [App\Http\Controllers\GoogleLoginController::clas
 Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
 Route::get('/images/{folder}/{name}',         [ImageController::class, 'view']);
-
-
+Route::post('/comment/{eventId}', [HomeController::class, 'storeComment']);
 
 require __DIR__ . '/auth.php';
 

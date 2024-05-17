@@ -90,8 +90,7 @@ class EducationalQualificationResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\ToggleColumn::make('status')
-                    ->label(__('Статус'))
-                    ->default(1),
+                    ->label(__('Статус')),
 
                 Tables\Columns\TextColumn::make('position')
                     ->label(__('Позиція'))

@@ -8,21 +8,18 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Psychologist extends Model implements HasMedia
+class Psychologist extends Model
 {
     use HasFactory;
-
-    use InteractsWithMedia;
-
-    public function registerMediaCollections(): void
-    {
-        // Налаштуйте колекцію `psychologist`
-        $this->addMediaCollection('psychologist')
-            ->useDisk('local') // Використовуйте диск `public`
-            ->singleFile(false) // Дозволяє зберігати декілька файлів
-            ->acceptsMimeTypes(['image/jpeg', 'image/png']) // Дозволені типи файлів
-            ->directory('images'); // Вказує папку `images` для зберігання файлів
-    }
+    // public function registerMediaCollections(): void
+    // {
+    // Налаштуйте колекцію `psychologist`
+    //     $this->addMediaCollection('psychologist')
+    //         ->useDisk('local') // Використовуйте диск `public`
+    //         ->singleFile(false) // Дозволяє зберігати декілька файлів
+    //         ->acceptsMimeTypes(['image/jpeg', 'image/png']) // Дозволені типи файлів
+    //         ->directory('images'); // Вказує папку `images` для зберігання файлів
+    // }
 
     protected $casts = [
         'image' => 'array',

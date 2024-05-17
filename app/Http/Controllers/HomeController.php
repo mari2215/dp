@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\EducationalQualification;
 use App\Models\Event;
+use App\Models\Comment;
+use App\Models\Category;
 use Illuminate\View\View;
 use App\Models\Psychologist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\EducationalQualification;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -36,11 +38,41 @@ class HomeController extends BaseController
 
     public function event($id)
     {
-        $event = Event::where('id', $id)->first();
-        if (!$event) {
-            return abort(404);
+        $event = Event::findOrFail($id);
+        $comments = $event->comments()->whereNull('parent_id')->with('replies')->get();
+        return view('source.event', compact('event', 'comments'));
+    }
+
+    public function storeComment(Request $request, $eventId)
+    {
+        $event = Event::findOrFail($eventId);
+        $validatedData = $request->validate([
+            'comment' => 'required|string|max:255',
+            'parent_id' => 'nullable',
+            'user_id' => 'nullable',
+            'username' => '',
+            'email' => 'email',
+            'event_id' => 'required|integer',
+            'status' => 'nullable',
+        ]);
+
+        $userId = Auth::id();
+        $username = Auth::user() ? Auth::user()->name : $validatedData['username'];
+        $email = Auth::user() ? Auth::user()->email : $validatedData['email'];
+        $comment = new Comment([
+            'comment' => $validatedData['comment'],
+            'user_id' => $userId,
+            'parent_id' => $validatedData['parent_id'],
+            'event_id' => $validatedData['event_id'],
+            'username' => $username,
+            'email' => $email,
+            'status' => true,
+        ]);
+        if ($comment->save()) {
+            return redirect()->back()->with('success', 'Ваш коментар успішно додано!');
+        } else {
+            return redirect()->back()->with('error', 'Сталася помилка при збереженні коментаря.');
         }
-        return view('source.event', compact('event'));
     }
 
 

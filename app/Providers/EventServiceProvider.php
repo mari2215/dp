@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Activity;
 use App\Models\Psychologist;
+use App\Observers\ActivityObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Observers\PsychologistObserver;
@@ -28,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Psychologist::observe(PsychologistObserver::class);
+        Activity::observe(ActivityObserver::class);
     }
 
     /**
