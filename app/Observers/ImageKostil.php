@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Storage;
+
 class ImageKostil
 {
     public static function masivizator($text)
@@ -52,5 +54,13 @@ class ImageKostil
     public static function changedzator($model, $field)
     {
         return ($model->isDirty($field)) && (!empty($model->getOriginal($field)));
+    }
+
+    public static function tempclener()
+    {
+        $directory = 'livewire-tmp';
+        if (Storage::disk('local')->exists($directory)) {
+            Storage::disk('local')->deleteDirectory($directory);
+        }
     }
 }

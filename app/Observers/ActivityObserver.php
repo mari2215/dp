@@ -24,6 +24,8 @@ class ActivityObserver
             foreach ($prevImagesArray as $originalFile)
                 if (Storage::exists($originalFile))
                     Storage::disk('local')->delete($originalFile);
+
+            ImageKostil::tempclener();
         }
     }
 
@@ -44,6 +46,7 @@ class ActivityObserver
         if ($activity->isDirty('description')) {
             $activity->description = ImageKostil::urlazator($activity->description);
             $activity->save();
+            ImageKostil::tempclener();
         }
     }
     /**

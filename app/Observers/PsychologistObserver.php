@@ -34,6 +34,8 @@ class PsychologistObserver
             foreach ($prevImagesArray as $originalFile)
                 if (Storage::exists($originalFile))
                     Storage::disk('local')->delete($originalFile);
+
+            ImageKostil::tempclener();
         }
     }
 
@@ -60,6 +62,7 @@ class PsychologistObserver
         if ($psychologist->isDirty('subtitle')) {
             $psychologist->subtitle = ImageKostil::urlazator($psychologist->subtitle);
             $psychologist->save();
+            ImageKostil::tempclener();
         }
     }
 
