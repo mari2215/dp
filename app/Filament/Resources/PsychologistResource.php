@@ -23,6 +23,7 @@ use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 class PsychologistResource extends Resource
 {
     protected static ?string $model = Psychologist::class;
+    protected static ?string $navigationGroup = 'Персональні налаштування';
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
     protected static ?string $navigationLabel = 'Персональні дані';
     protected static ?string $pluralModelLabel = 'Персональні дані';

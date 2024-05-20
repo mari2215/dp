@@ -19,6 +19,7 @@ use App\Filament\Resources\EducationalQualificationResource\RelationManagers;
 class EducationalQualificationResource extends Resource
 {
     protected static ?string $model = EducationalQualification::class;
+    protected static ?string $navigationGroup = 'Персональні налаштування';
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationLabel = 'Кваліфікаційні сертифікати';
     protected static ?string $pluralModelLabel = 'Кваліфікаційні сертифікати';

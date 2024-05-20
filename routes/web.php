@@ -51,6 +51,8 @@ Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::clas
 
 Route::get('/images/{folder}/{name}',         [ImageController::class, 'view']);
 Route::post('/comment/{eventId}', [HomeController::class, 'storeComment']);
+Route::delete('/comments/{id}', [HomeController::class, 'destroyComment'])->name('comments.destroy');
+
 
 require __DIR__ . '/auth.php';
 

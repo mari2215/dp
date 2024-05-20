@@ -75,6 +75,12 @@ class HomeController extends BaseController
         }
     }
 
+    public function destroyComment($id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+        return redirect()->back()->with('success', 'Коментар успішно видалено');
+    }
 
     public function events(Request $request)
     {

@@ -5,39 +5,51 @@
         border-color: #EBEBEB;
         border-left: 1px solid rgb(166, 166, 171);
         background-color: #F9F9F9;
+        min-width: 300px;
     }
 
     .media-body {
         min-width: 250px;
     }
-
-    .form {
-        min-width: 300px;
-    }
 </style>
 </style>
 @foreach ($comments as $comment)
-<div class="d-sm-flex my-4 form" style="margin-left: {{ min($level * 20, 100) }}px; min-width: 300px;">
+<div class="d-sm-flex my-3 form mr-2" style="margin-left: {{ min($level * 20, 80) }}px; min-width: 300px;">
+
     <a class="d-inline-block mr-2 mb-3 mb-md-0" style="text-decoration: none;" href="#">
         <div class="user-icon rounded-circle" style="min-width:30px; min-height:30px; background-color: {{'hsl(' . hexdec(substr(md5($comment->username), 0, 2)) . ', 60%, 50%)'}}">
-            <center><span class="initial" style="line-height:30px;color: white; text-transform: uppercase;">{{ substr($comment->username, 0, 1) }}</span>
+            <center><span class="initial" style="line-height:30px;color: white; text-transform: uppercase;">{{ mb_substr($comment->username, 0, 1) }}</span>
                 <center>
         </div>
+
     </a>
 
-    <div class="media-body" style="min-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">
+    <div class="media-body pr-3" style="min-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">
         <div class="d-flex justify-content-between align-items-center">
-            <h3 id="data-user-id-{{ $comment->id }}" data-user-id="{{ $comment->username }}">{{ $comment->username }}</h3>
-            <span class="text-black-800 mr-3 font-weight-600">{{ $comment->created_at->format('F d, Y \a\t H:i p') }}</span>
+            <h4 id="data-user-id-{{ $comment->id }}" data-user-id="{{ $comment->username }}">{{ $comment->username }}</h4>
+            {{ \Carbon\Carbon::parse($comment->created_at)->locale('uk')->isoFormat('H:mm DD/MM/YY') }}
+
         </div>
-        <p>{{ $comment->comment }}</p>
-        <div class="d-flex justify-content-between align-items-center">
+        <div>{{ $comment->comment }}</div>
+        <div class="d-flex justify-content-between align-items-center mb-lg-3">
             @if ($comment->replies !== null && count($comment->replies) > 0)
             <a class="text-primary font-weight-600" href="#!" data-toggle="collapse" data-target="#replies-{{ $comment->id }}">
                 Відповіді ({{ count($comment->replies) }})
             </a>
             @endif
-            <a class="text-primary font-weight-600 reply-btn mr-3" href="#!" data-parent-id="{{ $comment->id }}">Відповісти</a>
+            <div class="d-flex justify-content-between">
+                <a class="text-primary font-weight-600 reply-btn mr-3" href="#!" data-parent-id="{{ $comment->id }}">Відповісти</a>
+                @if ($comment->user_id == auth()->id())
+                <form id="delete-comment-form-{{ $comment->id }}" action="{{ route('comments.destroy', ['id' => $comment->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <a type="" class="delete-comment-btn" data-comment-id="{{ $comment->id }}">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </form>
+                @endif
+            </div>
+
         </div>
     </div>
 </div>
@@ -71,5 +83,17 @@
                 commentInput.value = '@' + userId + ', ';
             });
         });
+
+        if (!$._data(document, 'events') || !$._data(document, 'events')['click'] || !$._data(document, 'events')['click'].some(event => event.selector === '.delete-comment-btn')) {
+            $(document).on('click', '.delete-comment-btn', function(e) {
+                e.preventDefault();
+                var commentId = $(this).data('comment-id');
+                if (confirm("Ви впевнені, що хочете видалити цей коментар?")) {
+                    $('#delete-comment-form-' + commentId).submit();
+                } else {
+                    return false;
+                }
+            });
+        }
     });
 </script>

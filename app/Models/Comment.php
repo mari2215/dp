@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Comment extends Model
 {
@@ -32,4 +33,14 @@ class Comment extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    public function scopeAuth(Builder $builder): Builder
+    {
+        return $builder->whereNotNull('user_id');
+    }
+
+    public function scopeNonauth(Builder $builder): Builder
+    {
+        return $builder->whereNull('user_id');
+    }
 }

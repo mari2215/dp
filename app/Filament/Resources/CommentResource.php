@@ -19,6 +19,9 @@ class CommentResource extends Resource
     protected static ?string $model = Comment::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-oval-left-ellipsis';
+    protected static ?string $navigationLabel = 'Коментарі';
+    protected static ?string $pluralModelLabel = 'Коментар';
+    protected static ?string $modelLabel = 'Коментар';
 
     public static function form(Form $form): Form
     {
@@ -71,9 +74,6 @@ class CommentResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label(__('Пошта'))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('comment')
-                    ->label(__('Коментар'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event.name')
                     ->numeric()

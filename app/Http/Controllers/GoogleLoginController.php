@@ -31,6 +31,7 @@ class GoogleLoginController extends Controller
         }
 
         Auth::login($user);
+        session()->regenerate();
         return redirect(RouteServiceProvider::HOME);
     }
 }
