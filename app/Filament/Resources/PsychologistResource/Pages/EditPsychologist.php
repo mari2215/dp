@@ -40,7 +40,12 @@ class EditPsychologist extends EditRecord
                         ->maxLength(255),
                     TinyEditor::make('title')
                         ->maxLength(255),
-                    TinyEditor::make('subtitle'),
+                    TinyEditor::make('subtitle')
+                        ->label(__('Опис'))
+                        ->columnSpanFull()
+                        ->fileAttachmentsDisk('local')
+                        ->fileAttachmentsVisibility('public')
+                        ->fileAttachmentsDirectory('images/uploads'),
                     TextInput::make('phone')
                         ->tel()
                         ->maxLength(255),
@@ -71,8 +76,8 @@ class EditPsychologist extends EditRecord
                     FileUpload::make('image')
                         ->disk('local')
                         ->reorderable()
-                        ->image() // Дозволяє завантаження зображень
-                        ->imageEditor() // Дозволяє редагування зображень
+                        ->image()
+                        ->imageEditor()
                         ->multiple()
                         ->directory('images/psychologist')
                         ->preserveFilenames()

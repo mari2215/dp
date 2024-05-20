@@ -28,15 +28,23 @@ class PsychologistObserver
             $prevImages = $psychologist->getOriginal('subtitle');
             $newFieldContents = $psychologist->subtitle;
 
+            $newFieldContents = str_replace('../',  '', $newFieldContents);
+            $newFieldContents = str_replace('src="images',  'src="/images', $newFieldContents);
+
+            $prevImages = str_replace('../',  '', $prevImages);
+            $prevImages = str_replace('src="images',  'src="/images', $prevImages);
+
+            $psychologist->subtitle = $newFieldContents;
+            $psychologist->saveQuietly();
+
             $prevImagesArray = $this->masivizator($prevImages);
             $newImagesArray = $this->masivizator($newFieldContents);
 
             $prevImagesArray = array_diff($prevImagesArray, $newImagesArray);
 
-            // dd($prevImagesArray);
-
             foreach ($prevImagesArray as $originalFile)
-                Storage::disk('local')->delete($originalFile);
+                if (Storage::exists($originalFile))
+                    Storage::disk('local')->delete($originalFile);
         }
     }
 
@@ -55,6 +63,14 @@ class PsychologistObserver
             foreach ($prevImagesArray as $file)
                 Storage::disk('local')->delete($file);
         }
+
+        if (!is_null($psychologist->subtitle)) {
+            $delImagesArray = $this->masivizator($psychologist->subtitle);
+
+            foreach ($delImagesArray as $originalFile)
+                if (Storage::exists($originalFile))
+                    Storage::disk('local')->delete($originalFile);
+        }
     }
     /**
      * Handle the Psychologist "created" event.
@@ -64,7 +80,7 @@ class PsychologistObserver
         if ($psychologist->isDirty('subtitle')) {
             $newFieldContents = $psychologist->subtitle;
             $newFieldContents = str_replace('../',  '', $newFieldContents);
-            $newFieldContents = str_replace('storage/',  'images/uploads/', $newFieldContents);
+            $newFieldContents = str_replace('src="images',  'src="/images', $newFieldContents);
             $psychologist->subtitle = $newFieldContents;
             $psychologist->save();
         }
@@ -78,14 +94,6 @@ class PsychologistObserver
     {
         //
     }
-
-    /**
-     * Handle the Psychologist "deleted" event.
-     */
-    // public function deleted(Psychologist $psychologist): void
-    // {
-    //     //
-    // }
 
     /**
      * Handle the Psychologist "restored" event.
@@ -108,20 +116,20 @@ class PsychologistObserver
         $flag = false;
         $image = '';
         $img_arr = [];
-        for ($i = 0; $i < strlen($text) - 1; $i++) {
-            if (substr($text, $i, 5) == 'src="') {
+        for ($i = 0; $i < strlen($text) - 5; $i++) {
+            if (substr($text, $i, 9) == 'img src="') {
                 $flag = true;
-                $i += 13;
+                $i += 9;
             }
-
-            if ($flag)
-                $image .= substr($text, $i, 1);
 
             if (substr($text, $i, 5) == '" alt') {
                 $flag = false;
                 $img_arr[] = $image;
                 $image = '';
             }
+
+            if ($flag)
+                $image .= substr($text, $i, 1);
         }
 
         return $img_arr;

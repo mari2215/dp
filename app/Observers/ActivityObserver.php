@@ -99,19 +99,19 @@ class ActivityObserver
         $image = '';
         $img_arr = [];
         for ($i = 0; $i < strlen($text) - 5; $i++) {
-            if (substr($text, $i, 5) == 'src="') {
+            if (substr($text, $i, 9) == 'img src="') {
                 $flag = true;
-                $i += 5;
+                $i += 9;
             }
-
-            if ($flag)
-                $image .= substr($text, $i, 1);
 
             if (substr($text, $i, 5) == '" alt') {
                 $flag = false;
                 $img_arr[] = $image;
                 $image = '';
             }
+
+            if ($flag)
+                $image .= substr($text, $i, 1);
         }
 
         return $img_arr;

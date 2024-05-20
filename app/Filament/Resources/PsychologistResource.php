@@ -40,7 +40,7 @@ class PsychologistResource extends Resource
                 TextInput::make('title')
                     ->maxLength(255)
                     ->label(__('Заголовок')),
-                TinyEditor::make('description')
+                TinyEditor::make('subtitle')
                     ->label(__('Опис'))
                     ->columnSpanFull()
                     ->fileAttachmentsDisk('local')
@@ -54,26 +54,26 @@ class PsychologistResource extends Resource
                     ->email()
                     ->maxLength(255)
                     ->label(__('Пошта')),
-                Forms\Components\TextInput::make('telegram')
+                TextInput::make('telegram')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('viber')
+                TextInput::make('viber')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('facebook')
+                TextInput::make('facebook')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('instagram')
+                TextInput::make('instagram')
                     ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('youtube_title')
                     ->maxLength(255)
                     ->label(__('Заголовок для відео')),
-                Forms\Components\TextInput::make('video_url')
+                TextInput::make('video_url')
                     ->maxLength(255)
                     ->label(__('Посилання на відео')),
                 FileUpload::make('image')
                     ->disk('local')
                     ->reorderable()
-                    ->image() // Дозволяє завантаження зображень
-                    ->imageEditor() // Дозволяє редагування зображень
-                    ->multiple() // Дозволяє завантаження декількох файлів
+                    ->image()
+                    ->imageEditor()
+                    ->multiple()
                     ->directory('images/psychologist')
                     ->label(__('Зображення'))
             ]);
