@@ -57,8 +57,6 @@
 
 							<p class="h4 text-muted font-weight-light mb-3">{!! $activity->description !!}</p>
 
-							{{ $activity->description }}
-
 							<p class="h4">{{$activity->price}} ₴</p>
 						</div>
 					</a>

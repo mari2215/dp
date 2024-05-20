@@ -7,80 +7,57 @@ use Illuminate\Support\Facades\Storage;
 
 class ActivityObserver
 {
-    public function saved(Activity $psychologist): void
+    public function saved(Activity $activity): void
     {
-        if (($psychologist->isDirty('description')) && (!empty($psychologist->getOriginal('description')))) {
-            // $prevImages = $psychologist->getOriginal('description');
+        if (ImageKostil::changedzator($activity, 'description')) {
+            $newFieldContents = ImageKostil::urlazator($activity->description);
+            $prevImages = ImageKostil::urlazator($activity->getOriginal('description'));
 
-            // $newFieldContents = $psychologist->description;
-            // $newFieldContents = str_replace('../',  '', $newFieldContents);
-            // $newFieldContents = str_replace('storage/',  '/', $newFieldContents);
-            // $psychologist->description = $newFieldContents;
-            // $psychologist->save();
+            $newImagesArray = ImageKostil::masivizator($newFieldContents);
+            $prevImagesArray = ImageKostil::masivizator($prevImages);
 
-            // $prevImagesArray = $this->masivizator($prevImages);
-            // $newImagesArray = $this->masivizator($newFieldContents);
+            $activity->description = $newFieldContents;
+            $activity->saveQuietly();
 
-            // $prevImagesArray = array_diff($prevImagesArray, $newImagesArray);
+            $prevImagesArray = array_diff($prevImagesArray, $newImagesArray);
 
-            // // dd($prevImagesArray);
-
-            // foreach ($prevImagesArray as $originalFile)
-            //     Storage::disk('local')->delete($originalFile);
+            foreach ($prevImagesArray as $originalFile)
+                if (Storage::exists($originalFile))
+                    Storage::disk('local')->delete($originalFile);
         }
     }
 
-
-
-    public function deleted(Activity $psychologist): void
+    public function deleted(Activity $activity): void
     {
-        // if (!is_null($psychologist->image)) {
-        //     $fieldContentsDecoded = $psychologist->image;
-
-        //     if (is_array($fieldContentsDecoded))
-        //         $prevImagesArray = $fieldContentsDecoded;
-        //     else
-        //         $prevImagesArray = json_decode($fieldContentsDecoded);
-
-        //     foreach ($prevImagesArray as $file)
-        //         Storage::disk('local')->delete($file);
-        // }
+        if (!is_null($activity->description)) {
+            $delImagesArray = ImageKostil::masivizator($activity->description);
+            foreach ($delImagesArray as $originalFile)
+                if (Storage::exists($originalFile))
+                    Storage::disk('local')->delete($originalFile);
+        }
     }
     /**
      * Handle the Activity "created" event.
      */
-    public function created(Activity $psychologist): void
+    public function created(Activity $activity): void
     {
-        if ($psychologist->isDirty('description')) {
-            $newFieldContents = $psychologist->description;
-            $newFieldContents = str_replace('../',  '', $newFieldContents);
-            $newFieldContents = str_replace('storage/',  '/', $newFieldContents);
-            $psychologist->description = $newFieldContents;
-            $psychologist->save();
+        if ($activity->isDirty('description')) {
+            $activity->description = ImageKostil::urlazator($activity->description);
+            $activity->save();
         }
     }
-
-
     /**
      * Handle the Activity "updated" event.
      */
-    public function updated(Activity $psychologist): void
+    public function updated(Activity $activity): void
     {
         //
     }
 
     /**
-     * Handle the Activity "deleted" event.
-     */
-    // public function deleted(Activity $psychologist): void
-    // {
-    //     //
-    // }
-
-    /**
      * Handle the Activity "restored" event.
      */
-    public function restored(Activity $psychologist): void
+    public function restored(Activity $activity): void
     {
         //
     }
@@ -88,32 +65,8 @@ class ActivityObserver
     /**
      * Handle the Activity "force deleted" event.
      */
-    public function forceDeleted(Activity $psychologist): void
+    public function forceDeleted(Activity $activity): void
     {
         //
-    }
-
-    private function masivizator($text)
-    {
-        $flag = false;
-        $image = '';
-        $img_arr = [];
-        for ($i = 0; $i < strlen($text) - 5; $i++) {
-            if (substr($text, $i, 9) == 'img src="') {
-                $flag = true;
-                $i += 9;
-            }
-
-            if (substr($text, $i, 5) == '" alt') {
-                $flag = false;
-                $img_arr[] = $image;
-                $image = '';
-            }
-
-            if ($flag)
-                $image .= substr($text, $i, 1);
-        }
-
-        return $img_arr;
     }
 }
