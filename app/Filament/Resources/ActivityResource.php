@@ -141,4 +141,18 @@ class ActivityResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    protected static ?string $recordTitleAttribute = 'title';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title', 'category.title'];
+    }
+
+    public static function getGlobalSearchResultDetails($model): array
+    {
+        return [
+            'Категорія' => $model->category->title,
+        ];
+    }
 }

@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Pages\SubNavigationPosition;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CommentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -22,6 +23,11 @@ class CommentResource extends Resource
     protected static ?string $navigationLabel = 'Коментарі';
     protected static ?string $pluralModelLabel = 'Коментар';
     protected static ?string $modelLabel = 'Коментар';
+    protected static ?string $navigationGroup = 'Заходи';
+
+    protected static ?int $navigationSort = 1;
+
+    // protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function form(Form $form): Form
     {

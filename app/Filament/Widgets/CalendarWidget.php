@@ -43,19 +43,19 @@ class CalendarWidget extends FullCalendarWidget
     public function getFormSchema(): array
     {
         return [
-            TextInput::make('name'),
+            TextInput::make('name')->label('Назва'),
             Select::make('category_id')
                 ->relationship('category', 'title')
-                ->preload(),
+                ->preload()->label('Тип'),
             Grid::make()
                 ->schema([
-                    DateTimePicker::make('start'),
-                    DateTimePicker::make('end'),
+                    DateTimePicker::make('start')->label('Початок'),
+                    DateTimePicker::make('end')->label('Кінець'),
                     TinyEditor::make('description')
                         ->maxLength(65535)
-                        ->columnSpanFull(),
+                        ->columnSpanFull()->label('Опис'),
                     TextInput::make('location')
-                        ->maxLength(255),
+                        ->maxLength(255)->label('Локація'),
                     TextInput::make('price')
                         ->numeric()
                         ->minValue(0)
@@ -63,6 +63,7 @@ class CalendarWidget extends FullCalendarWidget
                         ->label(__('Ціна'))
                         ->prefix('₴'),
                     Toggle::make('status')
+                        ->label('Статус')
                         ->required(),
                 ]),
         ];

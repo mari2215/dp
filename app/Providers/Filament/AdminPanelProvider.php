@@ -61,9 +61,21 @@ class AdminPanelProvider extends PanelProvider
                     FilamentFullCalendarPlugin::make()
                         ->selectable()
                         ->editable(true)
-                        ->locale('uk'),
+                        ->locale('uk')
+                        ->config($this->config()),
                     \Hasnayeen\Themes\ThemesPlugin::make(),
                 ]
             );
+    }
+    protected function config(): array
+    {
+        return [
+            'firstDay' => 1,
+            'headerToolbar' => [
+                'left' => 'prev',
+                'center' => 'title',
+                'right' => 'next',
+            ],
+        ];
     }
 }
