@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Event;
 use App\Models\Comment;
 use App\Models\Category;
@@ -73,6 +74,31 @@ class HomeController extends BaseController
         } else {
             return redirect()->back()->with('error', 'Сталася помилка при збереженні коментаря.');
         }
+    }
+
+    public function storeBooking(Request $request, $eventId)
+    {
+        $event = Event::findOrFail($eventId);
+        $booking = new Booking([
+            'user_id' => Auth::id(),
+            'event_id' => $event->id,
+            'total_price' => isset($event->price) ? $event->price : 0,
+            'notes' => 'Заявка подана',
+        ]);
+        if ($booking->save()) {
+            return redirect()->back()->with('success', 'Ваш коментар успішно додано!');
+        } else {
+            return redirect()->back()->with('error', 'Сталася помилка при збереженні коментаря.');
+        }
+    }
+
+    public function markAsRead($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->read = true;
+        $booking->save();
+
+        return response()->json(['success' => true]);
     }
 
     public function destroyComment($id)

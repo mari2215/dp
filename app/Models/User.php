@@ -40,4 +40,14 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasRegistrationForEvent($eventId)
+    {
+        return $this->bookings()->where('event_id', $eventId)->exists();
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

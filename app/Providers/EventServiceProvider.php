@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Booking;
 use App\Models\Activity;
 use App\Models\Psychologist;
+use App\Observers\BookingObserver;
 use App\Observers\ActivityObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -31,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
     {
         Psychologist::observe(PsychologistObserver::class);
         Activity::observe(ActivityObserver::class);
+        Booking::observe(BookingObserver::class);
     }
 
     /**

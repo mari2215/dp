@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Psychologist;
 use Illuminate\Support\Facades\App;
@@ -27,10 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if (env('ENFORCE_SSL', false)) {
-            URL::forceScheme('https');
-        }
-
         try {
             if (Schema::hasTable('psychologists')) {
                 $psychologist = Psychologist::first();
@@ -55,6 +52,14 @@ class AppServiceProvider extends ServiceProvider
 
                 view()->composer('source.partials.header', function ($view) use ($categories) {
                     $view->with('categories', $categories);
+                });
+            }
+
+            if (Schema::hasTable('bookings')) {
+                $bookings = Booking::all();
+
+                view()->composer('source.partials.header', function ($view) use ($bookings) {
+                    $view->with('bookings', $bookings);
                 });
             }
         } catch (\Exception $e) {

@@ -131,7 +131,10 @@ class ManageEventComments extends ManageRelatedRecords
                 Tables\Columns\TextColumn::make('comment')
                     ->label('Коментар')
                     ->searchable()
-                    ->limit(50),
+                    ->limit(50)
+                    ->tooltip(function ($record) {
+                        return $record->comment;
+                    }),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label(__('Статус'))->sortable(),
             ])

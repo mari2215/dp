@@ -46,13 +46,13 @@
           @php
           $startDate = Carbon\Carbon::parse($qualification->start_date);
           $graduationDate = Carbon\Carbon::parse($qualification->graduation_date);
-
-          $formattedStartDate = $startDate->locale('uk')->isoFormat('MMM Y');
-          $formattedGraduationDate = $graduationDate->locale('uk')->isoFormat('MMM Y');
+          $formattedStartDate = $startDate->locale('uk')->isoFormat('MMMM YYYY');
+          $formattedGraduationDate = $graduationDate->locale('uk')->isoFormat('MMMM YYYY');
           @endphp
 
           {{ $formattedStartDate }} - {{ $formattedGraduationDate }}
         </p>
+
         <p>{{ $qualification->institution }}</p>
       </div>
       @endforeach

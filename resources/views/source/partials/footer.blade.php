@@ -44,6 +44,7 @@
 
 <!-- Main Script -->
 <script src="{{ asset('theme/theme/js/script.js')}}"></script>
+
 </body>
 
 </html>

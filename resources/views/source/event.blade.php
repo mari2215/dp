@@ -35,7 +35,11 @@
               @endif
             </li>
             <li class="list-inline-item">
-              <i class="ti-calendar"></i>{{$event->start}}
+              @php
+              $startDate = Carbon\Carbon::parse($event->start);
+              $formattedStartDate = $startDate->locale('uk')->isoFormat('D MMMM YYYY [о] H:mm');
+              @endphp
+              <i class="ti-calendar"></i>{{ $formattedStartDate}}
             </li>
             <li class="list-inline-item">
               <ul class="card-meta-tag list-inline">
@@ -53,8 +57,18 @@
             {!! str_replace('storage/', '', str_replace('storage//', 'storage/', $event->description)) !!}
           </div>
         </article>
-
+        <center>@if (Auth::user()->hasRegistrationForEvent($event->id))
+          <button class="btn btn-outline-primary btn-sm mt-2" disabled>
+            Бронь {{ auth()->user()->bookings()->where('event_id', $event->id)->first()->status}}
+          </button>
+          @else
+          <button class="btn btn-outline-primary btn-sm mt-2" data-toggle="modal" data-target="#myModal" href="">
+            Подати заявку
+          </button>
+          @endif
+        </center>
       </div>
+
 
       <div class="col-lg-9 col-md-12">
         <div class="mb-5 border-top mt-4 pt-5">
@@ -97,6 +111,33 @@
     </div>
   </div>
 </section>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+    <div class="modal-content border-0 bg-white">
+      <div class="modal-header align-items-center">
+        <h4 class="modal-title" id="exampleModalGridTitle">Заповніть заявку</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ url('book/'.$event->id) }}" id="comment-form">
+          @csrf
+          <div class="row">
+            <div class="form-group col-md-12">
+              <p>Підтвердіть реєстрацію заявки на участь в заході "{{$event->name}}"</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Надіслати</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

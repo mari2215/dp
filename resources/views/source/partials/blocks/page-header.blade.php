@@ -1,3 +1,16 @@
+<style>
+  @media (min-width: 992px) {
+    .header {
+      padding-top: 120px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .header {
+      padding-top: 80px;
+    }
+  }
+</style>
 @if (isset($title))
 <div class="header text-center">
   <div class="container">

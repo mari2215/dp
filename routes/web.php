@@ -51,6 +51,9 @@ Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::clas
 
 Route::get('/images/{folder}/{name}',         [ImageController::class, 'view']);
 Route::post('/comment/{eventId}', [HomeController::class, 'storeComment']);
+Route::post('/book/{eventId}', [HomeController::class, 'storeBooking']);
+Route::patch('/booking/{id}/read', [HomeController::class, 'markAsRead'])->name('booking.markAsRead');
+
 Route::delete('/comments/{id}', [HomeController::class, 'destroyComment'])->name('comments.destroy');
 
 
