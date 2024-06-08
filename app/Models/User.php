@@ -46,8 +46,18 @@ class User extends Authenticatable implements FilamentUser
         return $this->bookings()->where('event_id', $eventId)->exists();
     }
 
+    public function isGoogleUser()
+    {
+        return $this->is_google_user;
+    }
+
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

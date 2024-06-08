@@ -13,7 +13,10 @@ use Filament\Resources\Pages\ListRecords\Tab;
 class ListComments extends ListRecords
 {
     protected static string $resource = CommentResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Переглянути усі записи';
+    }
     public function getTabs(): array
     {
         return [

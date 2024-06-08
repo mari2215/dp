@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->decimal('total_price', 8, 2)->default(0.00);
-            $table->string('payment_status')->default('не оплачено');
+            $table->boolean('payment_status')->default(false);
             $table->string('status')->default('опрацьовується');
             $table->text('notes')->nullable();
             $table->boolean('read')->default(false);

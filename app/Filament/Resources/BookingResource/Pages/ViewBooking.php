@@ -9,7 +9,10 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewBooking extends ViewRecord
 {
     protected static string $resource = BookingResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Переглянути запис';
+    }
     protected function getHeaderActions(): array
     {
         return [

@@ -9,7 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditEducationalQualification extends EditRecord
 {
     protected static string $resource = EducationalQualificationResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Редагувати записи';
+    }
     protected function getHeaderActions(): array
     {
         return [

@@ -11,6 +11,10 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewPsychologist extends ViewRecord
 {
     protected static string $resource = PsychologistResource::class;
+    public static function getNavigationLabel(): string
+    {
+        return 'Переглянути персональні дані';
+    }
     protected function getHeaderActions(): array
     {
         return [

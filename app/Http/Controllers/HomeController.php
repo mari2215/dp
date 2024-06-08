@@ -108,6 +108,21 @@ class HomeController extends BaseController
         return redirect()->back()->with('success', 'Коментар успішно видалено');
     }
 
+    public function reject(Request $request)
+    {
+        $bookingId = $request->input('booking_id');
+        $booking = Booking::find($bookingId);
+        if ($booking) {
+            $booking->status = 'відхилено';
+            $booking->notes = 'Запит відхилено';
+            $booking->save();
+
+            return response()->json(['success' => true, 'message' => 'Бронювання відхилено.']);
+        }
+        return response()->json(['success' => false, 'message' => 'Бронювання не знайдено.'], 404);
+    }
+
+
     public function events(Request $request)
     {
         $rec = Event::all();

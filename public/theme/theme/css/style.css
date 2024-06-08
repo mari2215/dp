@@ -90,7 +90,6 @@ h6, .h6 {
   background: #4FD675 !important;
   border-color: #4FD675 !important;
 }
-
 .btn-outline-primary {
   background: transparent;
   color: #4FD675;
@@ -1095,7 +1094,6 @@ mark {
 }
 
 .widget {
-  margin-bottom: 30px;
   padding: 15px;
   border-radius: 5px;
   border-top: 6px solid #4FD675;

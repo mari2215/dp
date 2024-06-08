@@ -9,7 +9,10 @@ use Filament\Resources\Pages\ListRecords;
 class ListCategories extends ListRecords
 {
     protected static string $resource = CategoryResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Переглянути усі записи';
+    }
     protected function getHeaderActions(): array
     {
         return [

@@ -20,7 +20,11 @@ class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
+    protected static ?string $navigationLabel = 'Бронювання';
+    protected static ?string $pluralModelLabel = 'Бронювання';
+    protected static ?string $modelLabel = 'Бронювання';
+    protected static ?string $navigationGroup = 'Користувачі';
 
     public static function form(Form $form): Form
     {
@@ -28,35 +32,35 @@ class BookingResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->options(fn () => User::pluck('name', 'id'))
+                    ->label('Користувач')
                     ->required(),
 
                 Forms\Components\Select::make('event_id')
-                    ->label('Event')
+                    ->label('Захід')
                     ->options(Event::pluck('name', 'id'))
                     ->required(),
 
                 Forms\Components\TextInput::make('total_price')
                     ->numeric()
-                    ->label('Price')
+                    ->label('Вартість')
                     ->default(0),
 
                 Forms\Components\Select::make('payment_status')
                     ->options([
-                        'не оплачено' => 'Не оплачено',
-                        'оплачено' => 'Оплачено',
-                        'в обробці' => 'В обробці',
-                    ])->default('не оплачено'),
+                        '0' => 'Не оплачено',
+                        '1' => 'Оплачено',
+                    ])->default('не оплачено')
+                    ->label('Статус оплати'),
                 Forms\Components\Select::make('status')
                     ->options([
                         'опрацьовується' => 'Опрацьовується',
                         'відхилено' => 'Відхилено',
                         'підтверджено' => 'Підтверджено',
-                    ])->default('опрацьовується'),
+                    ])->default('опрацьовується')
+                    ->label('Статус'),
                 Forms\Components\Textarea::make('notes')
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\Toggle::make('read')
-                    ->required(),
             ]);
     }
 
@@ -64,21 +68,24 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
+                Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('event_id')
+                    ->sortable()
+                    ->label(__('Користувач')),
+                Tables\Columns\TextColumn::make('event.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label(__('Захід')),
                 Tables\Columns\TextColumn::make('total_price')
                     ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('payment_status')
-                    ->searchable(),
+                    ->sortable()
+                    ->label(__('Вартість')),
+                Tables\Columns\IconColumn::make('payment_status')
+                    ->boolean()
+                    ->label(__('Статус оплати')),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('read')
-                    ->boolean(),
+                    ->searchable()
+                    ->label(__('Статус')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -1,11 +1,11 @@
 <section>
     <header>
         <h3 class=" font-medium text-gray-900">
-            Profile Information
+            Інформація профілю
         </h3>
 
         <p class="mt-1 text-sm text-secondary">
-            Update your account's profile information and email address.
+            Оновіть інформацію профіля та пошту.
         </p>
     </header>
 
@@ -18,7 +18,7 @@
         @method('patch')
 
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Ім'я</label>
             <input id="name" class="form-control" type="text" name="name" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
             @error('name')
             <span class="invalid-feedback" role="alert">
@@ -28,38 +28,20 @@
         </div>
 
         <div class="form-group">
-            <label for="email">Email</label>
-            <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $user->email) }}" required autocomplete="username" />
+            <label for="email">Пошта</label>
+            <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $user->email) }}" required autocomplete="username" readonly />
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-            <div>
-                <p class="text-sm mt-2 text-gray-800">
-                    Your email address is unverified.
-
-                    <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Click here to re-send the verification email.
-                    </button>
-                </p>
-
-                @if (session('status') === 'verification-link-sent')
-                <p class="mt-2 font-medium text-sm text-green-600">
-                    A new verification link has been sent to your email address.
-                </p>
-                @endif
-            </div>
-            @endif
         </div>
 
         <div class="d-flex gap-4">
-            <button type="submit" class="btn btn-primary m-auto">Save</button>
+            <button type="submit" class="btn btn-primary">Зберегти</button>
 
             @if (session('status') == 'profile-updated')
-            <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="text-sm text-gray-600">Saved.</p>
+            <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="text-sm text-gray-600">Збережено.</p>
             @endif
         </div>
     </form>

@@ -4,8 +4,77 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "774c9e7d0910ddb4ca9cd713927ca000",
+    "content-hash": "1f96fa11fa7542f0f459e4d397cfb0f4",
     "packages": [
+        {
+            "name": "3x1io/filament-user",
+            "version": "v1.1.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/3x1io/filament-user.git",
+                "reference": "9f7336c40dac2a778c21cbababc879136755971e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/3x1io/filament-user/zipball/9f7336c40dac2a778c21cbababc879136755971e",
+                "reference": "9f7336c40dac2a778c21cbababc879136755971e",
+                "shasum": ""
+            },
+            "require": {
+                "bezhansalleh/filament-shield": "^3.0@beta",
+                "filament/filament": "^3.0.0",
+                "php": "^8.1",
+                "queents/console-helpers": "^1.0",
+                "spatie/laravel-package-tools": "^1.14",
+                "stechstudio/filament-impersonate": "^3.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "io3x1\\FilamentUser\\FilamentUserProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "io3x1\\FilamentUser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "3x1",
+                    "email": "info@3x1.io",
+                    "role": "CEO"
+                }
+            ],
+            "description": "User Manager Resource For Filament Admin",
+            "homepage": "https://3x1.io",
+            "keywords": [
+                "cli",
+                "filament",
+                "laravel",
+                "resource",
+                "ui",
+                "user"
+            ],
+            "support": {
+                "issues": "https://github.com/3x1io/filament-user/issues",
+                "source": "https://github.com/3x1io/filament-user/tree/v1.1.11"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/3x1io",
+                    "type": "github"
+                }
+            ],
+            "abandoned": true,
+            "time": "2023-08-24T07:23:50+00:00"
+        },
         {
             "name": "akaunting/laravel-money",
             "version": "5.2.0",
@@ -140,6 +209,92 @@
                 "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.2.22"
             },
             "time": "2024-03-22T12:56:46+00:00"
+        },
+        {
+            "name": "bezhansalleh/filament-shield",
+            "version": "3.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bezhanSalleh/filament-shield.git",
+                "reference": "aa1046dac93350da5dec62753783ea28a56310dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bezhanSalleh/filament-shield/zipball/aa1046dac93350da5dec62753783ea28a56310dc",
+                "reference": "aa1046dac93350da5dec62753783ea28a56310dc",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.2",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.9",
+                "spatie/laravel-permission": "^6.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.0|^8.0",
+                "orchestra/testbench": "^8.0|^9.0",
+                "pestphp/pest": "^2.34",
+                "pestphp/pest-plugin-laravel": "^2.3",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpunit/phpunit": "^10.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BezhanSalleh\\FilamentShield\\FilamentShieldServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentShield": "BezhanSalleh\\FilamentShield\\Facades\\FilamentShield"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BezhanSalleh\\FilamentShield\\": "src",
+                    "BezhanSalleh\\FilamentShield\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bezhan Salleh",
+                    "email": "bezhan_salleh@yahoo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Filament support for `spatie/laravel-permission`.",
+            "homepage": "https://github.com/bezhansalleh/filament-shield",
+            "keywords": [
+                "acl",
+                "bezhanSalleh",
+                "filament",
+                "filament-shield",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security"
+            ],
+            "support": {
+                "issues": "https://github.com/bezhanSalleh/filament-shield/issues",
+                "source": "https://github.com/bezhanSalleh/filament-shield/tree/3.2.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/bezhanSalleh",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-05-14T00:32:23+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2389,6 +2544,73 @@
                 "source": "https://github.com/kirschbaum-development/eloquent-power-joins/tree/3.5.5"
             },
             "time": "2024-03-27T11:14:14+00:00"
+        },
+        {
+            "name": "lab404/laravel-impersonate",
+            "version": "1.7.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/404labfr/laravel-impersonate.git",
+                "reference": "82cad73700a8699d63de169bb41abd5ae283e9a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/404labfr/laravel-impersonate/zipball/82cad73700a8699d63de169bb41abd5ae283e9a8",
+                "reference": "82cad73700a8699d63de169bb41abd5ae283e9a8",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0",
+                "php": "^7.2 | ^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench": "^4.0 | ^5.0 | ^6.0 | ^7.0 | ^8.0 | ^9.0",
+                "phpunit/phpunit": "^7.5 | ^8.0 | ^9.0 | ^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lab404\\Impersonate\\ImpersonateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Lab404\\Impersonate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marceau Casals",
+                    "email": "marceau@casals.fr"
+                }
+            ],
+            "description": "Laravel Impersonate is a plugin that allows to you to authenticate as your users.",
+            "keywords": [
+                "auth",
+                "impersonate",
+                "impersonation",
+                "laravel",
+                "laravel-package",
+                "laravel-plugin",
+                "package",
+                "plugin",
+                "user"
+            ],
+            "support": {
+                "issues": "https://github.com/404labfr/laravel-impersonate/issues",
+                "source": "https://github.com/404labfr/laravel-impersonate/tree/1.7.5"
+            },
+            "time": "2024-03-11T14:26:14+00:00"
         },
         {
             "name": "laravel/framework",
@@ -5307,6 +5529,130 @@
             "time": "2024-04-02T15:57:53+00:00"
         },
         {
+            "name": "pxlrbt/filament-spotlight",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pxlrbt/filament-spotlight.git",
+                "reference": "138f1cf15ba72a2b4316f10fdaa4d00cd0cbda19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pxlrbt/filament-spotlight/zipball/138f1cf15ba72a2b4316f10fdaa4d00cd0cbda19",
+                "reference": "138f1cf15ba72a2b4316f10fdaa4d00cd0cbda19",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0.0-stable",
+                "php": "^8.0",
+                "wire-elements/spotlight": "^2.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "pxlrbt\\FilamentSpotlight\\SpotlightServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "pxlrbt\\FilamentSpotlight\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dennis Koch",
+                    "email": "info@pixelarbeit.de"
+                }
+            ],
+            "description": "Spotlight for Filament Admin",
+            "keywords": [
+                "alfred",
+                "filament",
+                "laravel",
+                "laravel-filament",
+                "spotlight",
+                "wire-elements"
+            ],
+            "support": {
+                "issues": "https://github.com/pxlrbt/filament-spotlight/issues",
+                "source": "https://github.com/pxlrbt/filament-spotlight/tree/v1.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/pxlrbt",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-22T07:12:14+00:00"
+        },
+        {
+            "name": "queents/console-helpers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/queents/console-helpers.git",
+                "reference": "dfac645afebea1eaca5609f325d0cb62f2a9ac43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/queents/console-helpers/zipball/dfac645afebea1eaca5609f325d0cb62f2a9ac43",
+                "reference": "dfac645afebea1eaca5609f325d0cb62f2a9ac43",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Queents\\ConsoleHelpers\\ConsoleHelpersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Queents\\ConsoleHelpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fady Mondy",
+                    "email": "EngFadyMondy@gmail.com"
+                }
+            ],
+            "description": "tons of helper you need for you artisan command line application",
+            "keywords": [
+                "application",
+                "artisan",
+                "command",
+                "console",
+                "helpers",
+                "line"
+            ],
+            "support": {
+                "issues": "https://github.com/queents/console-helpers/issues",
+                "source": "https://github.com/queents/console-helpers/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/3x1io",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-24T18:25:51+00:00"
+        },
+        {
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
             "source": {
@@ -6094,6 +6440,88 @@
             "time": "2024-03-20T07:29:11+00:00"
         },
         {
+            "name": "spatie/laravel-permission",
+            "version": "6.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "17607924aa0aa89bc0153c2ce45ed7c55083367b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/17607924aa0aa89bc0153c2ce45ed7c55083367b",
+                "reference": "17607924aa0aa89bc0153c2ce45ed7c55083367b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^8.12|^9.0|^10.0|^11.0",
+                "illuminate/container": "^8.12|^9.0|^10.0|^11.0",
+                "illuminate/contracts": "^8.12|^9.0|^10.0|^11.0",
+                "illuminate/database": "^8.12|^9.0|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/passport": "^11.0|^12.0",
+                "orchestra/testbench": "^6.23|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.4|^10.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "6.x-dev",
+                    "dev-master": "6.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 8.0 and up",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-permission/issues",
+                "source": "https://github.com/spatie/laravel-permission/tree/6.7.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-04-19T12:35:28+00:00"
+        },
+        {
             "name": "spatie/temporary-directory",
             "version": "2.2.1",
             "source": {
@@ -6153,6 +6581,48 @@
                 }
             ],
             "time": "2023-12-25T11:46:58+00:00"
+        },
+        {
+            "name": "stechstudio/filament-impersonate",
+            "version": "3.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stechstudio/filament-impersonate.git",
+                "reference": "3b5eb0ab172deefd06b2b51d616b0f822ab45fbd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stechstudio/filament-impersonate/zipball/3b5eb0ab172deefd06b2b51d616b0f822ab45fbd",
+                "reference": "3b5eb0ab172deefd06b2b51d616b0f822ab45fbd",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0",
+                "lab404/laravel-impersonate": "^1.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "STS\\FilamentImpersonate\\FilamentImpersonateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "STS\\FilamentImpersonate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Filament package to impersonate your users.",
+            "support": {
+                "issues": "https://github.com/stechstudio/filament-impersonate/issues",
+                "source": "https://github.com/stechstudio/filament-impersonate/tree/3.9"
+            },
+            "time": "2024-06-05T15:07:37+00:00"
         },
         {
             "name": "symfony/console",
@@ -8724,6 +9194,80 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "wire-elements/spotlight",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wire-elements/spotlight.git",
+                "reference": "1d64ebdc9ea56761f6be0e5554765ce498fb16a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wire-elements/spotlight/zipball/1d64ebdc9ea56761f6be0e5554765ce498fb16a8",
+                "reference": "1d64ebdc9ea56761f6be0e5554765ce498fb16a8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0",
+                "livewire/livewire": "^3.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.4.3"
+            },
+            "require-dev": {
+                "brianium/paratest": "^6.2|^7.4",
+                "nunomaduro/collision": "^5.3|^8.0",
+                "orchestra/testbench": "^6.15|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.3|^10.5",
+                "vimeo/psalm": "^4.4|^5.22"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LivewireUI\\Spotlight\\SpotlightServiceProvider"
+                    ],
+                    "aliases": {
+                        "Spotlight": "LivewireUI\\Spotlight\\SpotlightFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LivewireUI\\Spotlight\\": "src",
+                    "LivewireUI\\Spotlight\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philo Hermans",
+                    "email": "support@wire-elements.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Livewire component that provides Spotlight/Alfred-like functionality to your Laravel application.",
+            "homepage": "https://github.com/wire-elements/spotlight",
+            "keywords": [
+                "laravel",
+                "livewire-ui",
+                "spotlight"
+            ],
+            "support": {
+                "issues": "https://github.com/wire-elements/spotlight/issues",
+                "source": "https://github.com/wire-elements/spotlight/tree/2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/livewire-ui",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-02T12:10:01+00:00"
         }
     ],
     "packages-dev": [

@@ -6,8 +6,10 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use Filament\Facades\Filament;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -64,6 +66,7 @@ class AdminPanelProvider extends PanelProvider
                         ->locale('uk')
                         ->config($this->config()),
                     \Hasnayeen\Themes\ThemesPlugin::make(),
+                    SpotlightPlugin::make(),
                 ]
             );
     }

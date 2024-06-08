@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Psychologist;
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
@@ -27,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Filament::registerNavigationGroups([
+            'Заходи',
+            'Користувачі',
+            'Персональні дані',
+        ]);
 
         try {
             if (Schema::hasTable('psychologists')) {
@@ -58,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
             if (Schema::hasTable('bookings')) {
                 $bookings = Booking::all();
 
-                view()->composer('source.partials.header', function ($view) use ($bookings) {
+                view()->composer(['source.partials.header', 'profile.edit'], function ($view) use ($bookings) {
                     $view->with('bookings', $bookings);
                 });
             }

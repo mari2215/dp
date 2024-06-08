@@ -21,7 +21,7 @@ class CommentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-oval-left-ellipsis';
     protected static ?string $navigationLabel = 'Коментарі';
-    protected static ?string $pluralModelLabel = 'Коментар';
+    protected static ?string $pluralModelLabel = 'Коментарі';
     protected static ?string $modelLabel = 'Коментар';
     protected static ?string $navigationGroup = 'Заходи';
 
@@ -39,11 +39,6 @@ class CommentResource extends Resource
                     ->maxLength(65535)
                     ->columnSpanFull()
                     ->disabledOn('edit'),
-                Forms\Components\TextInput::make('username')
-                    ->label(__('Юзернейм'))
-                    ->nullable()
-                    ->maxLength(255)
-                    ->disabledOn('edit'),
                 Forms\Components\TextInput::make('email')
                     ->label(__('Пошта'))
                     ->email()
@@ -54,17 +49,6 @@ class CommentResource extends Resource
                     ->label(__('Подія'))
                     ->relationship('event', 'name')
                     ->preload()
-                    ->disabledOn('edit'),
-                Forms\Components\Select::make('user_id')
-                    ->label(__('Користувач'))
-                    ->relationship('user', 'name')
-                    ->preload()
-                    ->nullable()
-                    ->disabledOn('edit'),
-                Forms\Components\TextInput::make('parent_id')
-                    ->label(__('Батьківський коментар'))
-                    ->numeric()
-                    ->nullable()
                     ->disabledOn('edit'),
                 Forms\Components\Toggle::make('status')
                     ->required(),

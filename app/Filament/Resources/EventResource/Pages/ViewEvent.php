@@ -9,7 +9,10 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewEvent extends ViewRecord
 {
     protected static string $resource = EventResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Переглянути запис';
+    }
     protected function getHeaderActions(): array
     {
         return [

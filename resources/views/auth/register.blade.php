@@ -8,9 +8,21 @@
         height: 1px;
         background: #eee;
     }
+
+    @media (min-width: 992px) {
+        .content {
+            padding-top: 120px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .content {
+            padding-top: 80px;
+        }
+    }
 </style>
 
-<div class="container my-3 mb-5">
+<div class="content container my-3 mb-5">
     <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6 col-sm-6">
             <center><img src="{{ asset('theme/theme/images/logos/Charm.png')}}" class="img-fluid" style="max-width: 80%; height: auto;" alt="Phone image">

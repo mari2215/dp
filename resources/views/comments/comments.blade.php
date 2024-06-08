@@ -4,7 +4,6 @@
         padding-top: 10px;
         border-color: #EBEBEB;
         border-left: 1px solid rgb(166, 166, 171);
-        background-color: #F9F9F9;
         min-width: 300px;
     }
 

@@ -25,11 +25,14 @@ class PsychologistObserver
 
             $newImagesArray = ImageKostil::masivizator($newFieldContents);
             $prevImagesArray = ImageKostil::masivizator($prevImages);
+            $newFieldContents = ImageKostil::addClassToImages($newFieldContents);
 
             $psychologist->subtitle = $newFieldContents;
             $psychologist->saveQuietly();
 
             $prevImagesArray = array_diff($prevImagesArray, $newImagesArray);
+
+            $prevImages = ImageKostil::urlazator($psychologist->getOriginal('subtitle'));
 
             foreach ($prevImagesArray as $originalFile)
                 if (Storage::exists($originalFile))

@@ -57,7 +57,8 @@
             {!! str_replace('storage/', '', str_replace('storage//', 'storage/', $event->description)) !!}
           </div>
         </article>
-        <center>@if (Auth::user()->hasRegistrationForEvent($event->id))
+        <center>
+          @if (Auth::user()->hasRegistrationForEvent($event->id))
           <button class="btn btn-outline-primary btn-sm mt-2" disabled>
             Бронь {{ auth()->user()->bookings()->where('event_id', $event->id)->first()->status}}
           </button>

@@ -9,7 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditBooking extends EditRecord
 {
     protected static string $resource = BookingResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Редагувати запис';
+    }
     protected function getHeaderActions(): array
     {
         return [

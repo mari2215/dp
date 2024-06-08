@@ -12,7 +12,6 @@
             </div>
             <div class="col-md-5 text-md-right text-center mb-4">
                 <ul class="list-inline footer-list mb-0">
-
                     @if(isset($facebook))
                     <li class="list-inline-item"><a href="{{$facebook}}"><i class="ti-facebook"></i></a></li>
 

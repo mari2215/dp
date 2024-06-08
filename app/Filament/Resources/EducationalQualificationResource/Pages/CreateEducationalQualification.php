@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateEducationalQualification extends CreateRecord
 {
     protected static string $resource = EducationalQualificationResource::class;
+    public static function getNavigationLabel(): string
+    {
+        return 'Створити новий сертифікат';
+    }
 }

@@ -20,24 +20,12 @@ class Booking extends Model
     const STATUS_REJECTED = 'відхилено';
     const STATUS_CONFIRMED = 'підтверджено';
 
-    const PAYMENT_STATUS_PENDING = 'не оплачено';
-    const PAYMENT_STATUS_PAID = 'оплачено';
-
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
             self::STATUS_PENDING => 'Опрацьовується',
             self::STATUS_REJECTED => 'Відхилено',
             self::STATUS_CONFIRMED => 'Підтверджено',
-            default => 'Невідомий',
-        };
-    }
-
-    public function getPaymentStatusLabelAttribute()
-    {
-        return match ($this->payment_status) {
-            self::PAYMENT_STATUS_PENDING => 'Не оплачено',
-            self::PAYMENT_STATUS_PAID => 'Оплачено',
             default => 'Невідомий',
         };
     }
@@ -54,5 +42,6 @@ class Booking extends Model
 
     protected $casts = [
         'read' => 'boolean',
+        'payment_status' => 'boolean',
     ];
 }

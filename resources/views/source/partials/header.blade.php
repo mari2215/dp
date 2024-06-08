@@ -32,33 +32,9 @@
 
 </head>
 <style>
-  /* @keyframes slideOutRight {
-    0% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateX(100%);
-      opacity: 0;
-      height: 0;
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  .slide-out-right {
-    animation: slideOutRight 0.3s forwards;
-    position: relative;
-  }
-   */
   .card {
     transition: height 0.3s ease, opacity 0.3s ease;
   }
-
-  /* .card {
-    transition: height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
-  } */
 </style>
 
 
@@ -97,16 +73,8 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                About <i class="ti-angle-down ml-1"></i>
-              </a>
-              <div class="dropdown-menu">
-
-                <a class="dropdown-item" href="/about">About Me</a>
-                <a class="dropdown-item" href="about-us.html">About Us</a>
-
-              </div>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">Про мене</a>
             </li>
 
             <li class="nav-item">
@@ -114,7 +82,7 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages <i class="ti-angle-down ml-1"></i>
+              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Категорії <i class="ti-angle-down ml-1"></i>
               </a>
               <div class="dropdown-menu">
                 @if (isset($categories))
@@ -128,57 +96,51 @@
 
             </li>
 
+            <li class="nav-item d-lg-none">
+              <button class="btn btn-outline-light" href="#offcanvasExample" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <i class="bi bi-bell text-dark"></i>
+              </button>
+            </li>
 
             <li class="nav-item dropdown d-lg-none">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @auth{{ Auth::user()->name }}@endauth
-                @guest Profile @endguest
+                @guest Профіль @endguest
               </a>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 @auth
-                <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                <a class="dropdown-item" href="/profile">Edit Profile</a>
+                <a class="dropdown-item" href="/profile">Профіль</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                    {{ __('Log Out') }}
+                    {{ __('Вийти') }}
                   </a>
                 </form>
                 @endauth
                 @guest
                 @if (Route::has('login'))
-                <a href="{{ route('login') }}" class="dropdown-item">Log in</a>
+                <a href="{{ route('login') }}" class="dropdown-item">Авторизуватись</a>
                 @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="dropdown-item">Register</a>
+                <a href="{{ route('register') }}" class="dropdown-item">Зареєструватись</a>
                 @endif
                 @endif
                 @endguest
               </div>
             </li>
-            <li class="nav-item d-lg-none">
-
-              <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                <i class="bi bi-bell text-dark"></i>
-              </button>
-            </li>
-
           </ul>
 
         </div>
 
 
         <div class="order-2 order-lg-3 d-flex align-items-center">
-          <!-- search -->
-          <form class="search-bar">
+          <!-- <form class="search-bar">
             <input id="search-query" name="s" type="search" placeholder="Type &amp; Hit Enter...">
-          </form>
+          </form> -->
 
           <button class="navbar-toggler border-0 order-1" type="button" data-toggle="collapse" data-target="#navigation">
             <i class="ti-menu"></i>
           </button>
-
-
 
           <div class="collapse navbar-collapse" id="navbar-list-4">
             <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -188,25 +150,24 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   @auth{{ Auth::user()->name }}@endauth
-                  @guest Profile @endguest
+                  @guest Профіль @endguest
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                   @auth
-                  <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                  <a class="dropdown-item" href="/profile">Edit Profile</a>
+                  <a class="dropdown-item" href="/profile">Профіль</a>
                   <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                      {{ __('Log Out') }}
+                      {{ __('Вийти') }}
                     </a>
                   </form>
                   @endauth
                   @guest
                   @if (Route::has('login'))
-                  <a href="{{ route('login') }}" class="dropdown-item">Log in</a>
+                  <a href="{{ route('login') }}" class="dropdown-item">Авторизуватись</a>
                   @if (Route::has('register'))
-                  <a href="{{ route('register') }}" class="dropdown-item">Register</a>
+                  <a href="{{ route('register') }}" class="dropdown-item">Зареєструватись</a>
                   @endif
                   @endif
                   @endguest
@@ -240,7 +201,7 @@
           <div class="row card-body">
             <div class="">
               <h3 class="h4 mb-3">
-                <a class="post-title" href="post-elements.html">{{ $booking->event->name }}</a>
+                <a class="post-title" href="/event/{{ $booking->event->id }}">{{ $booking->event->name }}</a>
               </h3>
               <ul class="card-meta list-inline">
                 <li class="list-inline-item">
@@ -281,7 +242,6 @@
   </header>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
       $('.mark-as-read').on('click', function(e) {
@@ -289,8 +249,6 @@
         var button = $(this);
         var bookingId = button.data('id');
         var card = button.closest('.card');
-
-        // Плавно зменшуємо висоту та зникаємо елемент
         card.css({
           'overflow': 'hidden',
           'height': card.outerHeight()
@@ -308,7 +266,6 @@
               if (response.success) {
                 card.remove();
               } else {
-                // Скасувати анімацію у разі помилки
                 card.css({
                   'height': '',
                   'opacity': '',
@@ -318,7 +275,6 @@
               }
             },
             error: function(xhr) {
-              // Скасувати анімацію у разі помилки
               card.css({
                 'height': '',
                 'opacity': '',
@@ -331,11 +287,3 @@
       });
     });
   </script>
-
-
-
-
-
-
-
-  <!-- /navigation -->

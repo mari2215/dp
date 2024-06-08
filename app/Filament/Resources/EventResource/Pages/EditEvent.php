@@ -9,7 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Редагувати запис';
+    }
     protected function getHeaderActions(): array
     {
         return [

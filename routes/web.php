@@ -55,6 +55,7 @@ Route::post('/book/{eventId}', [HomeController::class, 'storeBooking']);
 Route::patch('/booking/{id}/read', [HomeController::class, 'markAsRead'])->name('booking.markAsRead');
 
 Route::delete('/comments/{id}', [HomeController::class, 'destroyComment'])->name('comments.destroy');
+Route::post('/reject-booking', [HomeController::class, 'reject'])->name('bookings.reject');
 
 
 require __DIR__ . '/auth.php';

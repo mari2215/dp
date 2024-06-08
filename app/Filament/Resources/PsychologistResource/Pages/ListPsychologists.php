@@ -9,7 +9,10 @@ use Filament\Resources\Pages\ListRecords;
 class ListPsychologists extends ListRecords
 {
     protected static string $resource = PsychologistResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Список персональних даних';
+    }
     protected function getHeaderActions(): array
     {
         return [

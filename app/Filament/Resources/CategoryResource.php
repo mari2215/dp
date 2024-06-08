@@ -43,7 +43,9 @@ class CategoryResource extends Resource
                     ->required()
                     ->default(true)
                     ->label(__('Статус')),
-                TinyEditor::make('description')->label(__('Опис'))->columnSpanFull(),
+                TinyEditor::make('description')->label(__('Опис'))->columnSpanFull()->fileAttachmentsDisk('local')
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('images/uploads'),
             ]);
     }
 

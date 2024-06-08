@@ -19,6 +19,10 @@ class CreatePsychologist extends CreateRecord
     use CreateRecord\Concerns\HasWizard;
 
     protected static string $resource = PsychologistResource::class;
+    public static function getNavigationLabel(): string
+    {
+        return 'Створити персональні дані';
+    }
 
     public function hasSkippableSteps(): bool
     {
@@ -32,9 +36,11 @@ class CreatePsychologist extends CreateRecord
                 ->schema([
                     TextInput::make('name')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Імя')),
                     TinyEditor::make('title')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Заголовок')),
                     TinyEditor::make('subtitle')
                         ->label(__('Опис'))
                         ->columnSpanFull()
@@ -43,10 +49,12 @@ class CreatePsychologist extends CreateRecord
                         ->fileAttachmentsDirectory('images/uploads'),
                     TextInput::make('phone')
                         ->tel()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Телефон')),
                     TextInput::make('email')
                         ->email()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Пошта')),
                 ]),
             Wizard\Step::make('Месенджери')
                 ->schema([
@@ -65,9 +73,11 @@ class CreatePsychologist extends CreateRecord
             Wizard\Step::make('Відео')
                 ->schema([
                     TinyEditor::make('youtube_title')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Заголовок')),
                     TextInput::make('video_url')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Посилання на відео')),
                     FileUpload::make('image')
                         ->disk('local')
                         ->reorderable()
@@ -76,6 +86,7 @@ class CreatePsychologist extends CreateRecord
                         ->multiple()
                         ->directory('images/psychologist')
                         ->preserveFilenames()
+                        ->label(__('Зображення'))
                 ]),
         ];
     }

@@ -9,7 +9,10 @@ use Filament\Resources\Pages\ListRecords;
 class ListEvents extends ListRecords
 {
     protected static string $resource = EventResource::class;
-
+    public static function getNavigationLabel(): string
+    {
+        return 'Переглянути усі записи';
+    }
     protected function getHeaderActions(): array
     {
         return [

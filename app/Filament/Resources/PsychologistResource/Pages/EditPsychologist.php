@@ -17,6 +17,10 @@ use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 class EditPsychologist extends EditRecord
 {
     protected static string $resource = PsychologistResource::class;
+    public static function getNavigationLabel(): string
+    {
+        return 'Змінити персональні дані';
+    }
     use EditRecord\Concerns\HasWizard;
     public function hasSkippableSteps(): bool
     {
@@ -37,9 +41,11 @@ class EditPsychologist extends EditRecord
                 ->schema([
                     TextInput::make('name')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Імя')),
                     TinyEditor::make('title')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Заголовок')),
                     TinyEditor::make('subtitle')
                         ->label(__('Опис'))
                         ->columnSpanFull()
@@ -48,10 +54,12 @@ class EditPsychologist extends EditRecord
                         ->fileAttachmentsDirectory('images/uploads'),
                     TextInput::make('phone')
                         ->tel()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Телефон')),
                     TextInput::make('email')
                         ->email()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Пошта')),
                 ]),
             Wizard\Step::make('Месенджери')
                 ->schema([
@@ -70,9 +78,11 @@ class EditPsychologist extends EditRecord
             Wizard\Step::make('Відео')
                 ->schema([
                     TinyEditor::make('youtube_title')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Заголовок')),
                     TextInput::make('video_url')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->label(__('Посилання на відео')),
                     FileUpload::make('image')
                         ->disk('local')
                         ->reorderable()
@@ -81,6 +91,7 @@ class EditPsychologist extends EditRecord
                         ->multiple()
                         ->directory('images/psychologist')
                         ->preserveFilenames()
+                        ->label(__('Зображення'))
                 ]),
         ];
     }

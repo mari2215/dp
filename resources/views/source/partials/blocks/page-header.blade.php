@@ -19,7 +19,7 @@
         <h1 class="mb-4">{{ $title }}</h1>
         @if (isset($page))
         <ul class="list-inline">
-          <li class="list-inline-item"><a class="text-default" href="/">Home
+          <li class="list-inline-item"><a class="text-default" href="/">Домашня сторінка
               &nbsp; &nbsp; /</a></li>
           <li class="list-inline-item text-primary">{{ $page }}</li>
         </ul>

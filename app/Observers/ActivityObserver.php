@@ -15,6 +15,7 @@ class ActivityObserver
 
             $newImagesArray = ImageKostil::masivizator($newFieldContents);
             $prevImagesArray = ImageKostil::masivizator($prevImages);
+            $newFieldContents = ImageKostil::addClassToImages($newFieldContents);
 
             $activity->description = $newFieldContents;
             $activity->saveQuietly();
