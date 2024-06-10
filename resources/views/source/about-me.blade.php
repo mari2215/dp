@@ -26,35 +26,33 @@
   </div>
 </div>
 @if (isset($qualifications))
-<section class="section-sm">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center mb-5">
-        <h2>Освіта та здобуті сертифікати</h2>
-      </div>
-      @foreach ($qualifications as $qualification)
-      <div class="col-lg-3 col-sm-6 text-center mb-4">
-
-        <li class="list-inline-item">
-          <img class="img-fluid" src="{{ asset($qualification->image) }}" alt="Image Description">
-        </li>
-
-        <h3 class="border-bottom pb-3 mb-3 mx-2">{{ $qualification->degree }}</h3>
-        <p class="mb-2">
-          @php
-          $startDate = Carbon\Carbon::parse($qualification->start_date);
-          $graduationDate = Carbon\Carbon::parse($qualification->graduation_date);
-          $formattedStartDate = $startDate->locale('uk')->isoFormat('MMMM YYYY');
-          $formattedGraduationDate = $graduationDate->locale('uk')->isoFormat('MMMM YYYY');
-          @endphp
-          {{ $formattedStartDate }} - {{ $formattedGraduationDate }}
-        </p>
-        <p>{{ $qualification->institution }}</p>
-      </div>
-      @endforeach
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center mb-5">
+      <h2>Освіта та сертифікати</h2>
     </div>
+    @foreach ($qualifications as $qualification)
+    <div class="col-lg-3 col-sm-6 text-center mb-4">
+
+      <li class="list-inline-item">
+        <img class="img-fluid" src="{{ asset($qualification->image) }}" alt="Image Description">
+      </li>
+
+      <h3 class="border-bottom pb-3 mb-3 mx-2">{{ $qualification->degree }}</h3>
+      <p class="mb-2">
+        @php
+        $startDate = Carbon\Carbon::parse($qualification->start_date);
+        $graduationDate = Carbon\Carbon::parse($qualification->graduation_date);
+        $formattedStartDate = $startDate->locale('uk')->isoFormat('MMMM YYYY');
+        $formattedGraduationDate = $graduationDate->locale('uk')->isoFormat('MMMM YYYY');
+        @endphp
+        {{ $formattedStartDate }} - {{ $formattedGraduationDate }}
+      </p>
+      <p>{{ $qualification->institution }}</p>
+    </div>
+    @endforeach
   </div>
-</section>
+</div>
 @endif
 @if (isset($$psychologist->video_url))
 <section class="section-sm">
@@ -90,44 +88,42 @@
   </div>
 </div>
 
-@if (isset($$psychologist))
-<section class="section-sm">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 mx-auto text-center">
-        <h3 class="mb-5">Підтримуйте зв'язок <br> з допомогою наступних сервісів</h3>
-        <ul class="list-inline logo-list">
-          @if (isset($psychologist->facebook))
-          <li class="list-inline-item">
-            <a href="{{ $psychologist->facebook }}" target="_blank">
-              <img class="img-fluid" src="theme/theme/images/logos/logo-1.png" alt="Facebook Logo">
-            </a>
-          </li>
-          @endif
-          @if (isset($psychologist->instagram))
-          <li class="list-inline-item">
-            <a href="{{ $psychologist->instagram }}" target="_blank">
-              <img class="img-fluid" src="theme/theme/images/logos/insta-logo.png" alt="Instagram Logo">
-            </a>
-          </li>
-          @endif
-          @if (isset($psychologist->telegram))
-          <li class="list-inline-item">
-            <a href="https://t.me/{{ $psychologist->telegram }}" target="_blank"><img class="img-fluid" src="theme/theme/images/logos/telegram-logo.png" alt="Telegram Logo">
-            </a>
-          </li>
-          @endif
-          @if (isset($psychologist->viber))
-          <li class="list-inline-item">
-            <a href="viber://chat?number={{ $psychologist->viber }}" target="_blank">
-              <img class="img-fluid" src="theme/theme/images/logos/viber-logo.png" alt="Viber Logo">
-            </a>
-          </li>
-          @endif
-        </ul>
-      </div>
+@if (isset($psychologist))
+<div class="container my-3">
+  <div class="row">
+    <div class="col-lg-10 mx-auto text-center">
+      <h3 class="mb-5">Підтримуйте зв'язок <br> з допомогою наступних сервісів</h3>
+      <ul class="list-inline logo-list">
+        @if (isset($psychologist->facebook))
+        <li class="list-inline-item">
+          <a href="{{ $psychologist->facebook }}" target="_blank">
+            <img class="img-fluid" src="theme/theme/images/logos/logo-1.png" alt="Facebook Logo">
+          </a>
+        </li>
+        @endif
+        @if (isset($psychologist->instagram))
+        <li class="list-inline-item">
+          <a href="{{ $psychologist->instagram }}" target="_blank">
+            <img class="img-fluid" src="theme/theme/images/logos/insta-logo.png" alt="Instagram Logo">
+          </a>
+        </li>
+        @endif
+        @if (isset($psychologist->telegram))
+        <li class="list-inline-item">
+          <a href="https://t.me/{{ $psychologist->telegram }}" target="_blank"><img class="img-fluid" src="theme/theme/images/logos/telegram-logo.png" alt="Telegram Logo">
+          </a>
+        </li>
+        @endif
+        @if (isset($psychologist->viber))
+        <li class="list-inline-item">
+          <a href="viber://chat?number={{ $psychologist->viber }}" target="_blank">
+            <img class="img-fluid" src="theme/theme/images/logos/viber-logo.png" alt="Viber Logo">
+          </a>
+        </li>
+        @endif
+      </ul>
     </div>
   </div>
-</section>
+</div>
 @endif
 @endsection

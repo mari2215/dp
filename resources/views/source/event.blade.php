@@ -15,8 +15,7 @@
           <h1 class="h2">{{ $event->name }}</h1>
           <ul class="card-meta my-3 list-inline">
             <li class="list-inline-item">
-              <a href="author-single.html" class="card-meta-author">
-                <img src="images/john-doe.jpg">
+              <a href="/about" class="card-meta-author">
                 <span>Світлана Савіцька</span>
               </a>
             </li>
@@ -58,14 +57,20 @@
           </div>
         </article>
         <center>
-          @if (Auth::user()->hasRegistrationForEvent($event->id))
+          @if (Auth::user()&&Auth::user()->hasRegistrationForEvent($event->id))
           <button class="btn btn-outline-primary btn-sm mt-2" disabled>
             Бронь {{ auth()->user()->bookings()->where('event_id', $event->id)->first()->status}}
           </button>
           @else
-          <button class="btn btn-outline-primary btn-sm mt-2" data-toggle="modal" data-target="#myModal" href="">
+          @auth<button class="btn btn-outline-primary btn-sm mt-2" data-toggle="modal" data-target="#myModal" href="">
             Подати заявку
           </button>
+          @endauth
+          @guest
+          <a class="btn btn-outline-primary btn-sm mt-2" href="{{ route('login') }}">
+            Подати заявку
+          </a>
+          @endguest
           @endif
         </center>
       </div>

@@ -93,8 +93,7 @@ class UserResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->whereNull('email_verified_at')),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Impersonate::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

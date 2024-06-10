@@ -61,6 +61,7 @@ class EducationalQualificationResource extends Resource
                 FileUpload::make('image')
                     ->label(__('Зображення'))
                     ->disk('local')
+                    ->columnSpanFull()
                     ->image() // Дозволяє завантаження зображень
                     ->imageEditor() // Дозволяє редагування зображень
                     ->directory('images/educational_qualifications')

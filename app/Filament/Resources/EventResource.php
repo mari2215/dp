@@ -16,6 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Pages\SubNavigationPosition;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\EventResource\Pages;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
 use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
@@ -78,6 +79,7 @@ class EventResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -118,7 +120,7 @@ class EventResource extends Resource
                             ->prefix('₴'),
                         Toggle::make('status')
                             ->required()
-                            ->label(__('Статус')),
+                            ->label(__('Статус'))->default(true),
                     ])
                     ->columns(2),
 

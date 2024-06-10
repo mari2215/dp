@@ -9,6 +9,7 @@ use Filament\PanelProvider;
 use Filament\Facades\Filament;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -67,6 +68,7 @@ class AdminPanelProvider extends PanelProvider
                         ->config($this->config()),
                     \Hasnayeen\Themes\ThemesPlugin::make(),
                     SpotlightPlugin::make(),
+                    FilamentPeekPlugin::make(),
                 ]
             );
     }

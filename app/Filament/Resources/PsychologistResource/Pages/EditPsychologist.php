@@ -4,18 +4,22 @@ namespace App\Filament\Resources\PsychologistResource\Pages;
 
 use Filament\Actions;
 use Filament\Forms\Components\Wizard;
+use App\Models\EducationalQualification;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\PsychologistResource;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 
 class EditPsychologist extends EditRecord
 {
+    use HasPreviewModal;
     protected static string $resource = PsychologistResource::class;
     public static function getNavigationLabel(): string
     {
@@ -29,9 +33,22 @@ class EditPsychologist extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
+            PreviewAction::make()
+                ->viewData([
+                    'psychologist' => $this->record,
+                    'qualifications' => EducationalQualification::all(),
+                ]),
         ];
+    }
+    protected function getPreviewModalView(): ?string
+    {
+        return 'source.about-me';
+    }
+
+    protected function getPreviewModalDataRecordKey(): ?string
+    {
+        return 'psychologist';
     }
 
     protected function getSteps(): array

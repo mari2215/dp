@@ -15,10 +15,12 @@ class Category extends Model
         'description',
         'status',
         'position',
+        'image',
     ];
 
     protected $casts = [
         'status' => 'boolean',
+        'image' => 'array',
     ];
 
     public function activities()

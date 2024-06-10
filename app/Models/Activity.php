@@ -19,11 +19,13 @@ class Activity extends Model
         'description',
         'category_id',
         'status',
+        'image',
         'position',
     ];
 
     protected $casts = [
         'status' => 'boolean',
+        'image' => 'array',
     ];
 
     public function category(): BelongsTo

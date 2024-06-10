@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ActivityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -64,6 +65,17 @@ class ActivityResource extends Resource
                     ->label(__('Статус'))
                     ->required()
                     ->default(true),
+
+                FileUpload::make('image')
+                    ->disk('local')
+                    ->reorderable()
+                    ->image()
+                    ->imageEditor()
+                    ->columnSpanFull()
+                    ->multiple()
+                    ->directory('images/activities')
+                    ->preserveFilenames()
+                    ->label(__('Зображення')),
             ]);
     }
 

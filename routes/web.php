@@ -16,17 +16,15 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::get('/', [HomeController::class, 'home']);
 
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/events', [HomeController::class, 'events']);
 Route::get('/event/{id}', [HomeController::class, 'event']);
 Route::get('/category', [HomeController::class, 'category']);
 Route::get('/category/{id}', [HomeController::class, 'show']);
+Route::get('/activity/{id}', [HomeController::class, 'activity']);
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 
 Route::get('/dashboard', function () {
@@ -42,8 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
 
 
 Route::get('/google/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');

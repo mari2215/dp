@@ -9,6 +9,14 @@ class CategoryObserver
 {
     public function saved(Category $category): void
     {
+        if (ImageKostil::changedzator($category, 'image')) {
+            $prevImagesArray = ImageKostil::arraizator($category->getOriginal('image'));
+
+            $prevImagesArray = array_diff($prevImagesArray, $category->image);
+
+            foreach ($prevImagesArray as $originalFile)
+                Storage::disk('local')->delete($originalFile);
+        }
         if (ImageKostil::changedzator($category, 'description')) {
             $newFieldContents = ImageKostil::urlazator($category->description);
             $prevImages = ImageKostil::urlazator($category->getOriginal('description'));
@@ -32,6 +40,11 @@ class CategoryObserver
 
     public function deleted(Category $category): void
     {
+        if (!is_null($category->image)) {
+            $prevImagesArray = ImageKostil::arraizator($category->image);
+            foreach ($prevImagesArray as $file)
+                Storage::disk('local')->delete($file);
+        }
         if (!is_null($category->description)) {
             $delImagesArray = ImageKostil::masivizator($category->description);
             foreach ($delImagesArray as $originalFile)

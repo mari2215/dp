@@ -8,6 +8,7 @@ use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,6 +47,16 @@ class CategoryResource extends Resource
                 TinyEditor::make('description')->label(__('Опис'))->columnSpanFull()->fileAttachmentsDisk('local')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('images/uploads'),
+                FileUpload::make('image')
+                    ->disk('local')
+                    ->reorderable()
+                    ->image()
+                    ->imageEditor()
+                    ->columnSpanFull()
+                    ->multiple()
+                    ->directory('images/categories')
+                    ->preserveFilenames()
+                    ->label(__('Зображення'))
             ]);
     }
 

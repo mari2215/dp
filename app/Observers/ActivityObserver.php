@@ -9,6 +9,16 @@ class ActivityObserver
 {
     public function saved(Activity $activity): void
     {
+
+        if (ImageKostil::changedzator($activity, 'image')) {
+            $prevImagesArray = ImageKostil::arraizator($activity->getOriginal('image'));
+
+            $prevImagesArray = array_diff($prevImagesArray, $activity->image);
+
+            foreach ($prevImagesArray as $originalFile)
+                Storage::disk('local')->delete($originalFile);
+        }
+
         if (ImageKostil::changedzator($activity, 'description')) {
             $newFieldContents = ImageKostil::urlazator($activity->description);
             $prevImages = ImageKostil::urlazator($activity->getOriginal('description'));
@@ -32,6 +42,12 @@ class ActivityObserver
 
     public function deleted(Activity $activity): void
     {
+        if (!is_null($activity->image)) {
+            $prevImagesArray = ImageKostil::arraizator($activity->image);
+            foreach ($prevImagesArray as $file)
+                Storage::disk('local')->delete($file);
+        }
+
         if (!is_null($activity->description)) {
             $delImagesArray = ImageKostil::masivizator($activity->description);
             foreach ($delImagesArray as $originalFile)

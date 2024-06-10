@@ -37,17 +37,23 @@
   }
 </style>
 
-
 <body>
+
   <header class="navigation fixed-top">
+
+
     <div class="container">
+
       <nav class="navbar navbar-expand-lg navbar-white">
+
         <a class="navbar-brand order-1" href="/">
           <img class="img-fluid" width="50px" src="{{ asset('theme/theme/images/logo.png')}}" alt="Reader | Hugo Personal Blog Template">
         </a>
+
+
         <div class="collapse navbar-collapse text-center order-lg-2 order-3" id="navigation">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 homepage <i class="ti-angle-down ml-1"></i>
               </a>
@@ -71,7 +77,7 @@
                 <a class="dropdown-item" href="index-grid-right.html">Homepage Grid With Right Sidebar</a>
 
               </div>
-            </li>
+            </li> -->
 
             <li class="nav-item">
               <a class="nav-link" href="/about">Про мене</a>
@@ -178,9 +184,15 @@
 
         </div>
 
+        <div>
+          <x-impersonate::banner style='light' />
+        </div>
 
       </nav>
+
+
     </div>
+
 
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasExample">
       <div class="offcanvas-header">

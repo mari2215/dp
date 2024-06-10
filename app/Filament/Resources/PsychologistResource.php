@@ -16,7 +16,9 @@ use Filament\Pages\SubNavigationPosition;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\MarkdownEditor;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use App\Filament\Resources\PsychologistResource\Pages;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\PsychologistResource\RelationManagers;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
@@ -29,6 +31,7 @@ class PsychologistResource extends Resource
     protected static ?string $navigationLabel = 'Персональні дані';
     protected static ?string $pluralModelLabel = 'Персональні дані';
     protected static ?string $modelLabel = 'Персональні дані';
+
 
     public static function form(Form $form): Form
     {
@@ -122,6 +125,8 @@ class PsychologistResource extends Resource
             //
         ];
     }
+
+
     public static function getPages(): array
     {
         return [

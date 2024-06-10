@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
 use App\Models\Event;
+use App\Models\Booking;
 use App\Models\Comment;
+use App\Models\Activity;
 use App\Models\Category;
 use Illuminate\View\View;
 use App\Models\Psychologist;
@@ -28,13 +29,40 @@ class HomeController extends BaseController
         return view('source.about-me', compact('psychologist', 'qualifications'));
     }
 
+    public function home()
+    {
+        $events = Event::where('status', true)
+            ->orderBy('start', 'desc')
+            ->take(3)
+            ->get();
+        $categories = Category::where('status', true)->withCount('activities')
+            ->orderBy('position', 'desc')
+            ->get();
+        $activities = Activity::where('status', true)->orderBy('position', 'desc')->paginate(4);
+        $psychologist = Psychologist::first();
+        return view('welcome', compact('events', 'categories', 'activities', 'psychologist'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('s');
+
+        $activities = Activity::where('title', 'LIKE', "%{$query}%")->get();
+        $events = Event::where('name', 'LIKE', "%{$query}%")->get();
+        $categories = Category::where('title', 'LIKE', "%{$query}%")->get();
+
+        if ($activities->isEmpty() && $events->isEmpty() && $categories->isEmpty()) return view('search.negative_results', compact('query'));
+
+        return view('search.results', compact('activities', 'events', 'categories', 'query'));
+    }
+
     public function category($title)
     {
         $category = Category::where('title', $title)
             ->with('activities')
             ->firstOrFail();
 
-        return view('source.author-single', compact('category'));
+        return view('source.category', compact('category'));
     }
 
     public function event($id)
@@ -125,7 +153,7 @@ class HomeController extends BaseController
 
     public function events(Request $request)
     {
-        $rec = Event::all();
+        $rec = Event::where('status', true)->get();
         $events = [];
         foreach ($rec as $ev) {
             $events[] = [
@@ -145,7 +173,12 @@ class HomeController extends BaseController
     {
         $category = Category::with('activities')
             ->where('id', $id)->firstOrFail();
+        return view('source.category', compact('category'));
+    }
 
-        return view('source.author-single', compact('category'));
+    public function activity($id)
+    {
+        $activity = Activity::where('id', $id)->firstOrFail();
+        return view('source.activity', compact('activity'));
     }
 }
