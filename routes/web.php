@@ -53,6 +53,8 @@ Route::patch('/booking/{id}/read', [HomeController::class, 'markAsRead'])->name(
 Route::delete('/comments/{id}', [HomeController::class, 'destroyComment'])->name('comments.destroy');
 Route::post('/reject-booking', [HomeController::class, 'reject'])->name('bookings.reject');
 
+Route::get('/page/{page}', [\App\Http\Controllers\PageController::class, 'index'])->name('page_index');
+
 
 require __DIR__ . '/auth.php';
 
