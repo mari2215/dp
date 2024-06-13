@@ -89,4 +89,6 @@ class CalendarWidget extends FullCalendarWidget
             DeleteAction::make(),
         ];
     }
+    protected static bool $isLazy = false;
+    protected static ?int $sort = 3;
 }

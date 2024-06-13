@@ -7,7 +7,7 @@ use App\Models\Booking;
 use App\Models\Comment;
 use App\Models\Activity;
 use App\Models\Category;
-use Illuminate\View\View;
+use App\Models\View;
 use App\Models\Psychologist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,6 +68,10 @@ class HomeController extends BaseController
     public function event($id)
     {
         $event = Event::findOrFail($id);
+        if (Auth::check()) {
+            $userId = Auth::id();
+            View::firstOrCreate(['event_id' => $id, 'user_id' => $userId]);
+        }
         $comments = $event->comments()->whereNull('parent_id')->with('replies')->get();
         return view('source.event', compact('event', 'comments'));
     }

@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
-use App\Filament\Resources\EventResource;
 use Filament\Actions;
+use App\Filament\Widgets\EventViews;
+use App\Filament\Resources\EventResource;
 use Filament\Resources\Pages\ListRecords;
 
 class ListEvents extends ListRecords

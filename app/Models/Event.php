@@ -38,4 +38,14 @@ class Event extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
+    public function uniqueViewsCount()
+    {
+        return $this->views()->distinct('user_id')->count();
+    }
 }
