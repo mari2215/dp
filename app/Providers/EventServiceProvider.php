@@ -6,7 +6,9 @@ use App\Models\Booking;
 use App\Models\Activity;
 use App\Models\Category;
 use App\Models\Psychologist;
+use App\Observers\PageObserver;
 use App\Observers\BookingObserver;
+use App\Models\Page;
 use App\Observers\ActivityObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\Event;
@@ -37,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
         Activity::observe(ActivityObserver::class);
         Booking::observe(BookingObserver::class);
         Category::observe(CategoryObserver::class);
+        Page::observe(PageObserver::class);
     }
 
     /**
