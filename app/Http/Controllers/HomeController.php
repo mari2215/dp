@@ -61,6 +61,10 @@ class HomeController extends BaseController
         $category = Category::where('title', $title)
             ->with('activities')
             ->firstOrFail();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            View::firstOrCreate(['category_id' => $category->id, 'user_id' => $userId, 'page_id' => 'category_' . $category->id]);
+        }
 
         return view('source.category', compact('category'));
     }
@@ -70,7 +74,7 @@ class HomeController extends BaseController
         $event = Event::findOrFail($id);
         if (Auth::check()) {
             $userId = Auth::id();
-            View::firstOrCreate(['event_id' => $id, 'user_id' => $userId]);
+            View::firstOrCreate(['category_id' => $event->category->id, 'user_id' => $userId, 'page_id' => 'event_' . $id]);
         }
         $comments = $event->comments()->whereNull('parent_id')->with('replies')->get();
         return view('source.event', compact('event', 'comments'));
@@ -177,12 +181,20 @@ class HomeController extends BaseController
     {
         $category = Category::with('activities')
             ->where('id', $id)->firstOrFail();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            View::firstOrCreate(['category_id' => $id, 'user_id' => $userId, 'page_id' => 'category_' . $id]);
+        }
         return view('source.category', compact('category'));
     }
 
     public function activity($id)
     {
         $activity = Activity::where('id', $id)->firstOrFail();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            View::firstOrCreate(['category_id' => $activity->category->id, 'user_id' => $userId, 'page_id' => 'activity_' . $id]);
+        }
         return view('source.activity', compact('activity'));
     }
 }

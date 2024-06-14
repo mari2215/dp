@@ -31,7 +31,7 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
     protected static ?string $navigationLabel = 'Сторінки';
-    protected static ?string $pluralModelLabel = 'Сторінку';
+    protected static ?string $pluralModelLabel = 'Сторінки';
     protected static ?string $modelLabel = 'Сторінку';
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';

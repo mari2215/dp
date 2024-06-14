@@ -100,6 +100,7 @@ class EventResource extends Resource
                             ->maxLength(255)
                             ->label(__('Назва заходу')),
                         Forms\Components\Select::make('category_id')
+                            ->required()
                             ->relationship('category', 'title')
                             ->preload()
                             ->label(__('Тип заходу')),

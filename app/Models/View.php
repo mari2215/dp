@@ -9,11 +9,11 @@ class View extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['event_id', 'user_id'];
+    protected $fillable = ['category_id', 'user_id', 'page_id'];
 
-    public function event()
+    public function category()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function user()

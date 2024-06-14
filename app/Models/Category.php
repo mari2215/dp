@@ -39,8 +39,13 @@ class Category extends Model
         return $this->hasManyThrough(Booking::class, Event::class);
     }
 
-    public function views(): HasManyThrough
+    public function views()
     {
-        return $this->hasManyThrough(View::class, Event::class);
+        return $this->hasMany(View::class);
+    }
+
+    public function uniqueViewsCount()
+    {
+        return $this->views()->distinct('user_id')->count();
     }
 }

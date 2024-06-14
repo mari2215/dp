@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Event extends Model
 {
@@ -39,13 +40,8 @@ class Event extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public function views()
+    public function views(): HasManyThrough
     {
-        return $this->hasMany(View::class);
-    }
-
-    public function uniqueViewsCount()
-    {
-        return $this->views()->distinct('user_id')->count();
+        return $this->hasManyThrough(View::class, Category::class);
     }
 }

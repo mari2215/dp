@@ -2,7 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Event;
 use App\Models\Category;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\Log;
@@ -10,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class EventViewsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Найбільш популярні заходи по переглядам';
+    protected static ?string $heading = 'Найбільш популярні категорії по переглядам';
     protected static ?int $sort = 2;
 
     protected function getData(): array
