@@ -49,8 +49,22 @@ class CalendarWidget extends FullCalendarWidget
                 ->preload()->label('Тип'),
             Grid::make()
                 ->schema([
-                    DateTimePicker::make('start')->label('Початок'),
-                    DateTimePicker::make('end')->label('Кінець'),
+                    DateTimePicker::make('start')
+                        ->required()
+                        ->label(__('Початок'))
+                        ->native(false)
+                        ->reactive(),
+                    DateTimePicker::make('end')
+                        ->required()
+                        ->label(__('Кінець'))
+                        ->reactive()
+                        ->afterStateUpdated(function (callable $set, $state) {
+                            $set('min_end', $state);
+                        })
+                        ->minDate(function ($get) {
+                            return $get('start');
+                        })
+                        ->native(false),
                     TinyEditor::make('description')
                         ->maxLength(65535)
                         ->columnSpanFull()->label('Опис'),

@@ -37,7 +37,14 @@
     .card {
         transition: height 0.3s ease, opacity 0.3s ease;
     }
+
+    .scrollable-menu {
+        max-height: 200px;
+        /* Встановіть відповідну висоту, яка підходить для вашого дизайну */
+        overflow-y: auto;
+    }
 </style>
+
 
 <body>
 
@@ -65,52 +72,46 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/events">Розклад подій</a>
                         </li>
+                        @if (count($categories) > 0)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Категорії <i
+                                        class="ti-angle-down ml-1"></i>
+                                </a>
+                                <div class="dropdown-menu">
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Категорії <i class="ti-angle-down ml-1"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                                @if (isset($categories))
                                     @foreach ($categories as $category)
                                         <a class="dropdown-item" href="/category/{{ $category->id }}">
                                             {{ $category->title }}
                                         </a>
                                     @endforeach
-                                @endif
-                            </div>
 
-                        </li>
+                                </div>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                homepage <i class="ti-angle-down ml-1"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="index-full.html">Homepage Full Width</a>
+                            </li>
+                        @endif
 
-                                <a class="dropdown-item" href="index-full-left.html">Homepage Full With Left Sidebar</a>
+                        <?php
+                        $pages = App\Models\Page::where(function ($query) {
+                            $query->where('publishing_ends_at', '>=', now())->orWhere(function ($query) {
+                                $query->whereNull('publishing_ends_at')->where('publishing_begins_at', '<=', now());
+                            });
+                        })->get(); ?>
 
-                                <a class="dropdown-item" href="index-full-right.html">Homepage Full With Right
-                                    Sidebar</a>
-
-                                <a class="dropdown-item" href="index-list.html">Homepage List Style</a>
-
-                                <a class="dropdown-item" href="index-list-left.html">Homepage List With Left Sidebar</a>
-
-                                <a class="dropdown-item" href="index-list-right.html">Homepage List With Right
-                                    Sidebar</a>
-
-                                <a class="dropdown-item" href="index-grid.html">Homepage Grid Style</a>
-
-                                <a class="dropdown-item" href="index-grid-left.html">Homepage Grid With Left Sidebar</a>
-
-                                <a class="dropdown-item" href="index-grid-right.html">Homepage Grid With Right
-                                    Sidebar</a>
-
-                            </div>
-                        </li>
+                        @if (count($pages) > 0)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Сторінки <i class="ti-angle-down ml-1"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <?php foreach ($pages as $page): ?>
+                                    <a class="dropdown-item" href="/page/{{ $page->slug }}">
+                                        {{ $page->title }}</a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </li>
+                        @endif
 
                         <li class="nav-item d-lg-none">
                             <button class="btn btn-outline-light" href="#offcanvasExample" type="button"
@@ -322,5 +323,17 @@
                     });
                 });
             });
+        });
+    </script>
+    <script>
+        // Якщо кількість пунктів у меню перевищує 5, додаємо прокрутку
+        $(document).ready(function() {
+            var menuItems = $('.dropdown-menu').find('.dropdown-item');
+            var maxVisibleItems = 5; // Максимальна кількість видимих пунктів
+
+            if (menuItems.length > maxVisibleItems) {
+                // Додати клас для прокрутки
+                $('.dropdown-menu').addClass('scrollable-menu');
+            }
         });
     </script>

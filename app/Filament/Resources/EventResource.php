@@ -106,10 +106,20 @@ class EventResource extends Resource
                             ->label(__('Тип заходу')),
                         Forms\Components\DateTimePicker::make('start')
                             ->required()
-                            ->label(__('Початок')),
+                            ->label(__('Початок'))
+                            ->native(false)
+                            ->reactive(),
                         Forms\Components\DateTimePicker::make('end')
                             ->required()
-                            ->label(__('Кінець')),
+                            ->label(__('Кінець'))
+                            ->reactive()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                $set('min_end', $state);
+                            })
+                            ->minDate(function ($get) {
+                                return $get('start');
+                            })
+                            ->native(false),
                         Forms\Components\TextInput::make('location')
                             ->maxLength(255)
                             ->label(__('Розташування')),

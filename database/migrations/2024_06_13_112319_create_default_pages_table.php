@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,9 +13,12 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-            //Publishing:
-            $table->timestamp('publishing_begins_at')->nullable();
-            $table->timestamp('publishing_ends_at')->nullable();
+            $table->timestamp('publishing_begins_at')
+                ->nullable()
+                ->default(Carbon::now()->addWeek());
+            $table->timestamp('publishing_ends_at')
+                ->nullable()
+                ->default(null);
             $table->index('publishing_begins_at');
             $table->index('publishing_ends_at');
 

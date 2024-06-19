@@ -1,4 +1,4 @@
-<div class="bg-{{ $getBackgroundColourClass() }}">
+<div class="bg-{{ $getBackgroundColourClass() }} mb-3">
     <div class="container">
         <div class="row">
             @if ($hasImage())
@@ -9,7 +9,7 @@
 
             <div class="col-md-{{ $hasImage() ? '6' : '12' }}">
                 @if ($title)
-                    <h2>{{ $replaceParameters($title) }}</h2>
+                    <h3>{{ $replaceParameters($title) }}</h3>
                 @endif
                 @if ($text)
                     <div>

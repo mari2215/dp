@@ -38,10 +38,9 @@ class Page extends Model implements HasContentBlocks, HasHeroImageAttributes, Ha
     use HasCodeTrait;
 
     protected $fillable = [
-        'title', 'intro', 'hero_image_copyright', 'hero_image_title',
+        'title',
         'publishing_begins_at', 'publishing_ends_at',
-        'overview_title', 'overview_description',
-        'content_blocks', 'slug', 'author_id', 'event_id', 'category_id', 'activity_id'
+        'content_blocks', 'slug'
     ];
 
     public function getViewUrl(?string $locale = null): string
@@ -52,19 +51,5 @@ class Page extends Model implements HasContentBlocks, HasHeroImageAttributes, Ha
     public function getPreviewUrl(?string $locale = null): string
     {
         return $this->getViewUrl($locale);
-    }
-
-    public function event()
-    {
-        return $this->belongsTo(Event::class);
-    }
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function activity()
-    {
-        return $this->belongsTo(Activity::class);
     }
 }

@@ -12,9 +12,11 @@
     }
 </style>
 
-<div class="{{ $getBackgroundColourClass() }}">
+<div class="{{ $getBackgroundColourClass() }} mb-3">
     <div class="container">
         <div @class([
+            'w-full',
+            $getImageWidthClass(),
             'w-90 mx-auto' => $imagePosition === 'center', // Центрування зображення
             'ml-auto' => $imagePosition === 'right', // Вирівнювання зліва
             'mr-auto' => $imagePosition === 'left', // Вирівнювання справа

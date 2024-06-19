@@ -7,6 +7,7 @@ use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Facades\Filament;
+use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
 use Pboivin\FilamentPeek\FilamentPeekPlugin;
@@ -21,6 +22,8 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -55,6 +58,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])->userMenuItems([
+                'profile' => MenuItem::make()
+                    ->label('Адмін')
+                    ->url(fn (): string => EditProfilePage::getUrl())
+                    ->icon('heroicon-m-user-circle'),
             ])
             ->plugins(
                 [
@@ -66,6 +74,8 @@ class AdminPanelProvider extends PanelProvider
                     \Hasnayeen\Themes\ThemesPlugin::make(),
                     SpotlightPlugin::make(),
                     FilamentPeekPlugin::make(),
+                    FilamentEditProfilePlugin::make()->setNavigationLabel('Профіль')
+                        ->setNavigationGroup('Персональні налаштування')->setIcon('heroicon-o-user'),
                 ]
             );
     }

@@ -15,12 +15,12 @@
         margin-bottom: 20px;
     }
 
-    .nav-tabs .nav-link {
+    .nav-tabs .nav-link-tab {
         border: 1px solid #ddd;
         border-radius: 0;
     }
 
-    .nav-tabs .nav-link.active {
+    .nav-tabs .nav-link-tab.active {
         background-color: #007bff;
         color: white;
         border-color: #007bff;
@@ -45,15 +45,15 @@
     <div class="container div">
         <div class="row">
             <aside class="col-lg-4">
-
-
                 <div class="widget widget-about">
                     <h4 class="widget-title">{{ Auth::user()->name }}</h4>
                 </div>
                 <ul class="nav nav-tabs nav-pills nav-fill">
                     <li class="nav-item">
-                        <a class="nav-link active btn btn-outline-primary mb-2 btn-block" href="#"
-                            data-target="#profile-settings">Налаштування профілю</a>
+                        <a class="nav-link-tab active btn btn-outline-primary mb-2 btn-block" href="#profile-settings"
+                            data-toggle="tab">
+                            Налаштування профілю
+                        </a>
                     </li>
                 </ul>
                 <div class="widget">
@@ -83,12 +83,13 @@
                     @else
                         <p>Немає записів</p>
                     @endif
-
                 </div>
                 <ul class="nav nav-tabs nav-pills nav-fill">
                     <li class="nav-item">
-                        <a class="nav-link btn mb-2  btn btn-outline-primary btn-block" href="#"
-                            data-target="#all-bookings">Бронювання</a>
+                        <a class="nav-link-tab btn mb-2 btn btn-outline-primary btn-block" href="#all-bookings"
+                            data-toggle="tab">
+                            Бронювання
+                        </a>
                     </li>
                 </ul>
                 <div class="widget">
@@ -102,7 +103,7 @@
                                     style="min-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">
                                     <div class="ml-3">
                                         <h5><a class="post-title"
-                                                href="/event/{{ $comment->event->id }}">{{ $comment->event->name }}</a></h5>
+                                                href="/event/{{ $comment->event_id }}">{{ $comment->event->name }}</a></h5>
                                         <p>{{ Str::limit($comment->comment, 60) }}</p>
                                     </div>
                                 </div>
@@ -110,11 +111,12 @@
                         @endforeach
                     @endif
                 </div>
-
                 <ul class="nav nav-tabs nav-pills nav-fill">
                     <li class="nav-item">
-                        <a class="nav-link btn mb-2  btn btn-outline-primary btn-block" href="#"
-                            data-target="#all-comments">Коментарі</a>
+                        <a class="nav-link-tab btn mb-2 btn btn-outline-primary btn-block" href="#all-comments"
+                            data-toggle="tab">
+                            Коментарі
+                        </a>
                     </li>
                 </ul>
             </aside>
@@ -130,7 +132,6 @@
                         @endif
                     </div>
                     <div class="tab-pane fade" id="all-bookings">
-
                         @if ($unreadCount > 0)
                             @foreach ($unreadBookings as $booking)
                                 <article class="mb-4">
@@ -213,16 +214,13 @@
                                         </div>
                                     </a>
                                     <span><strong>{{ $comment->username }}</strong> коментар під записом <a
-                                            href="/event/{{ $comment->event->id }}"
+                                            href="/event/{{ $comment->event_id }}"
                                             class="alert-link">"{{ $comment->event->name }}"</a></span>
                                 </div>
-
-
                                 <div class="d-sm-flex my-3 form mr-2 px-2" style="margin-left: 20px; min-width: 300px;">
                                     <div class="media-body pr-3"
                                         style="min-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">
                                         <div class="d-flex justify-content-between align-items-center">
-
                                             {{ \Carbon\Carbon::parse($comment->created_at)->locale('uk')->isoFormat('H:mm DD/MM/YY') }}
                                             <form id="delete-comment-form-{{ $comment->id }}"
                                                 action="{{ route('comments.destroy', ['id' => $comment->id]) }}"
@@ -239,9 +237,7 @@
                                         <div class="d-flex justify-content-between align-items-center mb-lg-3">
                                             <div class="d-flex justify-content-between">
                                                 <p></p>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -250,19 +246,17 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.reject-booking').on('click', function(e) {
                 e.preventDefault();
-
                 var bookingId = $(this).data('booking-id');
                 var button = $(this);
                 var url = '/reject-booking'; // URL до вашого маршруту для відхилення бронювання
-
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -287,35 +281,29 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            if (!$._data(document, 'events') || !$._data(document, 'events')['click'] || !$._data(document,
-                    'events')['click'].some(event => event.selector === '.delete-comment-btn')) {
-                $(document).on('click', '.delete-comment-btn', function(e) {
-                    e.preventDefault();
-                    var commentId = $(this).data('comment-id');
-                    if (confirm("Ви впевнені, що хочете видалити цей коментар?")) {
-                        $('#delete-comment-form-' + commentId).submit();
-                    } else {
-                        return false;
-                    }
-                });
-            }
+            $(document).on('click', '.delete-comment-btn', function(e) {
+                e.preventDefault();
+                var commentId = $(this).data('comment-id');
+                if (confirm("Ви впевнені, що хочете видалити цей коментар?")) {
+                    $('#delete-comment-form-' + commentId).submit();
+                } else {
+                    return false;
+                }
+            });
+
+
         });
+        const navLinks = document.querySelectorAll('.nav-link-tab');
+        const tabPanes = document.querySelectorAll('.tab-pane');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('data-target');
-
-                    navLinks.forEach(nav => nav.classList.remove('active'));
-                    tabPanes.forEach(tab => tab.classList.remove('show', 'active'));
-
-                    this.classList.add('active');
-                    document.querySelector(target).classList.add('show', 'active');
-                });
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                tabPanes.forEach(tab => tab.classList.remove('show', 'active'));
+                this.classList.add('active');
+                document.querySelector(target).classList.add('show', 'active');
             });
         });
     </script>

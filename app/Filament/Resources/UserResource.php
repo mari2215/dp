@@ -19,6 +19,8 @@ use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
+use App\Filament\Resources\UserResource\RelationManagers\BookingsRelationManager;
+use App\Filament\Resources\UserResource\RelationManagers\CommentsRelationManager;
 
 class UserResource extends Resource
 {
@@ -36,36 +38,10 @@ class UserResource extends Resource
         return trans('Користувачі');
     }
 
-    public static function form(Form $form): Form
-    {
-        $rows = [
-            TextInput::make('name')
-                ->required()
-                ->label('Нікнейм'),
-            TextInput::make('email')
-                ->email()
-                ->required()
-                ->label('Пошта'),
-            TextInput::make('password')
-                ->label('Пароль')
-                ->password()
-                ->maxLength(255)
-                ->dehydrateStateUsing(static function ($state) use ($form) {
-                    return !empty($state)
-                        ? Hash::make($state)
-                        : User::find($form->getColumns())?->password;
-                }),
-        ];
-
-        $form->schema($rows);
-
-        return $form;
-    }
-
     public static function table(Table $table): Table
     {
         !config('filament-user.impersonate') ?: $table->actions([Impersonate::make('impersonate')]);
-        $table
+        return $table
             ->columns([
                 TextColumn::make('name')
                     ->sortable()
@@ -101,7 +77,64 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-        return $table;
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            BookingsRelationManager::class,
+            CommentsRelationManager::class,
+        ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'email'];
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->maxLength(255)
+                            ->label('Ім\'я')
+                            ->required(),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Пошта')
+                            ->required()
+                            ->email()
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true),
+                        TextInput::make('password')
+                            ->label('Пароль')
+                            ->password()
+                            ->maxLength(255)
+                            ->dehydrateStateUsing(static function ($state) use ($form) {
+                                return !empty($state)
+                                    ? Hash::make($state)
+                                    : User::find($form->getColumns())?->password;
+                            }),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(['lg' => fn (?User $record) => $record === null ? 3 : 2]),
+
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('Створено')
+                            ->content(fn (User $record): ?string => $record->created_at?->diffForHumans()),
+
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('Модифіковано')
+                            ->content(fn (User $record): ?string => $record->updated_at?->diffForHumans()),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?User $record) => $record === null),
+            ])
+            ->columns(3);
     }
 
     public static function getPages(): array

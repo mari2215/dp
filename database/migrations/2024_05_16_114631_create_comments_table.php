@@ -16,8 +16,8 @@ class CreateCommentsTable extends Migration
             $table->text('comment');
             $table->string('username');
             $table->string('email');
-            $table->unsignedBigInteger('event_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignId('event_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();

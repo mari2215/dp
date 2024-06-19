@@ -1,52 +1,38 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use Filament\Forms;
-use App\Models\User;
 use Filament\Tables;
 use App\Models\Event;
-use App\Models\Booking;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Livewire;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\BookingResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BookingResource\RelationManagers;
+use Filament\Resources\RelationManagers\RelationManager;
 
-class BookingResource extends Resource
+class BookingsRelationManager extends RelationManager
 {
-    protected static ?string $model = Booking::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
+    protected static string $relationship = 'bookings';
     protected static ?string $navigationLabel = 'Бронювання';
-    protected static ?string $pluralModelLabel = 'Бронювання';
-    protected static ?string $modelLabel = 'Бронювання';
-    protected static ?string $navigationGroup = 'Користувачі';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->options(fn () => User::pluck('name', 'id'))
+                Forms\Components\TextInput::make('user_id')
                     ->label('Користувач')
-                    ->required()
-                    ->disabledOn('edit'),
+                    ->required()->disabledOn('edit'),
 
                 Forms\Components\Select::make('event_id')
                     ->label('Захід')
                     ->options(Event::pluck('name', 'id'))
-                    ->required()
-                    ->disabledOn('edit'),
+                    ->required()->disabledOn('edit'),
 
                 Forms\Components\TextInput::make('total_price')
                     ->numeric()
                     ->label('Вартість')
-                    ->default(0)
-                    ->disabledOn('edit'),
+                    ->default(0)->disabledOn('edit'),
 
                 Forms\Components\Select::make('payment_status')
                     ->options([
@@ -54,6 +40,7 @@ class BookingResource extends Resource
                         '1' => 'Оплачено',
                     ])->default('не оплачено')
                     ->label('Статус оплати'),
+
                 Forms\Components\Select::make('status')
                     ->options([
                         'опрацьовується' => 'Опрацьовується',
@@ -61,13 +48,14 @@ class BookingResource extends Resource
                         'підтверджено' => 'Підтверджено',
                     ])->default('опрацьовується')
                     ->label('Статус'),
+
                 Forms\Components\Textarea::make('notes')
                     ->maxLength(65535)
                     ->columnSpanFull(),
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -99,18 +87,7 @@ class BookingResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('user_id')
-                    ->label(__('Користувач'))
-                    ->relationship('user', 'name'),
-                Tables\Filters\SelectFilter::make('event_id')
-                    ->label(__('Захід'))
-                    ->relationship('event', 'name'),
-                Tables\Filters\SelectFilter::make('payment_status')
-                    ->label(__('Статус оплати'))
-                    ->options([
-                        1 => __('Оплачено'),
-                        0 => __('Не оплачено'),
-                    ]),
+                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -122,21 +99,5 @@ class BookingResource extends Resource
                 ]),
             ]);
     }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListBookings::route('/'),
-            'create' => Pages\CreateBooking::route('/create'),
-            'view' => Pages\ViewBooking::route('/{record}'),
-            'edit' => Pages\EditBooking::route('/{record}/edit'),
-        ];
-    }
+    protected static bool $isLazy = false;
 }
