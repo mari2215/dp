@@ -1,34 +1,61 @@
 <div class="section section--default">
     <div class="container">
-        @if($hasOverlayImage())
-            <div x-data="{isPlaying: false, embedUrl: '{{ $getEmbedSrc() }}'}" class="cursor-pointer group">
-                <div class="relative flex items-center justify-center" x-show="!isPlaying" x-transition x-transition.delay.300ms>
-                    {{ $getOverlayImageMedia(attributes:['alt' => '', 'class' => 'w-full', 'loading' => 'lazy']) }}
-                    <div class="absolute inset-0">
-                        <div class="flex items-center justify-center h-full">
-                            <button class="flex flex-col items-center justify-center before:transition-all before:duration-300 before:ease-in-out group-hover:before:bg-black/30 before:absolute before:bg-black/0 before:inset-0"
-                                @click="isPlaying = !isPlaying; $nextTick(() => { $refs.iframeElement.setAttribute('src', embedUrl) });">
-                                <div class="relative z-10 text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-16 h-16" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clip-rule="evenodd"/>
-                                    </svg>
-                                </div>
-                                <div class="text-white mt-4 text-lg text-center">@lang('filament-flexible-content-blocks::filament-flexible-content-blocks.form_component.content_blocks.video.sr_msg')</div>
-                            </button>
-                        </div>
+        <div class="row justify-content-center align-items-center">
+            @if ($hasOverlayImage())
+                <div class="col-lg-5 col-md-6 mb-4 mb-md-0 order-1 order-md-2">
+                    <div class="video-wrapper">
+                        <img src="{{ $getOverlayImageMedia(attributes: ['alt' => '', 'class' => 'img-fluid', 'loading' => 'lazy']) }}
+                            <a class="play-btn
+                            video-btn" data-toggle="modal"
+                            data-src="{{ $getEmbedSrc() }}
+                            data-target="#myModal"
+                            href="#">
+                        <i class="ti-control-play"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="bg-black" x-show="isPlaying" x-transition x-transition.delay.300ms x-cloak>
-                    <iframe title="youtube embed" x-ref="iframeElement" src="" class="w-full aspect-video"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                <div class="col-lg-5 col-md-6 order-2 order-md-1 text-center text-md-left">
+
+                    <a href="{{ $getEmbedSrc() }}" class="btn btn-primary">Перегляньте на ютубі</a>
                 </div>
-            </div>
-        @else
-            <div class="w-full">
-                {!! $getEmbedCode(['class' => 'w-full h-full aspect-video', 'allow' => 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture', 'allowfullscreen' => true ]) !!}
-            </div>
-        @endif
+            @else
+                <div class="w-full">
+                    {!! $getEmbedCode([
+                        'class' => 'w-full h-full aspect-video',
+                        'allow' => 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+                        'allowfullscreen' => true,
+                    ]) !!}
+                </div>
+            @endif
+        </div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0 bg-transparent">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always"
+                        allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Ensuring the modal is properly managed for video playback
+    $('#myModal').on('shown.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var videoSrc = button.data('src');
+        var modal = $(this);
+        modal.find('iframe').attr('src', videoSrc);
+    }).on('hidden.bs.modal', function() {
+        $(this).find('iframe').attr('src', '');
+    });
+</script>

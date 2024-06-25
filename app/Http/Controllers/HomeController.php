@@ -29,6 +29,20 @@ class HomeController extends BaseController
         return view('source.about-me', compact('psychologist', 'qualifications'));
     }
 
+    public function welcome($page, $categories)
+    {
+        $events = Event::where('status', true)
+            ->orderBy('start', 'desc')
+            ->take(3)
+            ->get();
+        $categories = Category::where('status', true)->withCount('activities')
+            ->orderBy('position', 'desc')
+            ->get();
+        $activities = Activity::where('status', true)->orderBy('position', 'desc')->paginate(4);
+        $psychologist = Psychologist::first();
+        return view('welcome', compact('events', 'categories', 'activities', 'psychologist'));
+    }
+
     public function home()
     {
         $events = Event::where('status', true)
@@ -76,8 +90,9 @@ class HomeController extends BaseController
             $userId = Auth::id();
             View::firstOrCreate(['category_id' => $event->category->id, 'user_id' => $userId, 'page_id' => 'event_' . $id]);
         }
+        $psychologist = Psychologist::first();
         $comments = $event->comments()->whereNull('parent_id')->with('replies')->get();
-        return view('source.event', compact('event', 'comments'));
+        return view('source.event', compact('event', 'comments', 'psychologist'));
     }
 
     public function storeComment(Request $request, $eventId)
@@ -158,13 +173,14 @@ class HomeController extends BaseController
         return response()->json(['success' => false, 'message' => 'Бронювання не знайдено.'], 404);
     }
 
-
     public function events(Request $request)
     {
-        $rec = Event::where('status', true)->get();
-        $events = [];
+        $rec = Event::where('status', true)
+            ->where('end', '>=', now())
+            ->get();
+        $activeEvents = [];
         foreach ($rec as $ev) {
-            $events[] = [
+            $activeEvents[] = [
                 'id'    => $ev->id,
                 'title' => $ev->name,
                 'start' => $ev->start,
@@ -174,7 +190,10 @@ class HomeController extends BaseController
             ];
         }
 
-        return view('source.events', compact('events'));
+        $finishedEvents = Event::where('status', true)
+            ->where('end', '<', now())->paginate(3);
+
+        return view('source.events', compact('activeEvents', 'finishedEvents'));
     }
 
     public function show($id)

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3599279bdcbb0c83c4459a817e0afa71",
+    "content-hash": "a245e78d23517a10ca90acba5bb98735",
     "packages": [
         {
             "name": "3x1io/filament-user",
@@ -10861,6 +10861,79 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "innoge/filament-form-faker",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InnoGE/filament-form-faker.git",
+                "reference": "eca3a8f3d3d5d573588a434601d94eecf80c0d8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InnoGE/filament-form-faker/zipball/eca3a8f3d3d5d573588a434601d94eecf80c0d8b",
+                "reference": "eca3a8f3d3d5d573588a434601d94eecf80c0d8b",
+                "shasum": ""
+            },
+            "require": {
+                "filament/forms": "^3.0",
+                "illuminate/contracts": "^10.0|^11.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.8|^8.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.17|^9.0",
+                "pestphp/pest": "^2.28",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "InnoGE\\FilamentFormFaker\\FilamentFormFakerServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentFormFaker": "InnoGE\\FilamentFormFaker\\Facades\\FilamentFormFaker"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "InnoGE\\FilamentFormFaker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Geisendoerfer",
+                    "email": "geisi@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to generate fake input data for Filament forms.",
+            "homepage": "https://github.com/innoge/filament-form-faker",
+            "keywords": [
+                "filament-form-faker",
+                "innoge",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/InnoGE/filament-form-faker/issues",
+                "source": "https://github.com/InnoGE/filament-form-faker/tree/0.2"
+            },
+            "time": "2024-03-11T16:25:34+00:00"
         },
         {
             "name": "laravel/breeze",

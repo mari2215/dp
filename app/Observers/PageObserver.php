@@ -10,7 +10,8 @@ class PageObserver
 {
     public function saved(Page $page): void
     {
-        $this->cleanupUnusedImages($page);
+        if (ImageKostil::changedzator($page, 'content_blocks'))
+            $this->cleanupUnusedImages($page);
     }
 
     public function deleted(Page $page): void
@@ -20,18 +21,11 @@ class PageObserver
 
     protected function cleanupUnusedImages(Page $page): void
     {
-        $newImages = $this->extractImageUuidsFromContentBlocks($page->content_blocks);
+        $newImages = ImageKostil::contentizator($page->content_blocks);
 
         $originalContentBlocks = ImageKostil::arraizator($page->getOriginal('content_blocks'));
-        $oldImages = $this->extractImageUuidsFromContentBlocks($originalContentBlocks);
+        $oldImages = ImageKostil::contentizator($originalContentBlocks);
 
-        if (!is_array($newImages)) {
-            $newImages = [];
-        }
-
-        if (!is_array($oldImages)) {
-            $oldImages = [];
-        }
         $unusedImages = array_diff($oldImages, $newImages);
 
         foreach ($unusedImages as $imageUuid) {
@@ -45,7 +39,7 @@ class PageObserver
     protected function deleteAllImages(Page $page): void
     {
         $contentBlocks =  ImageKostil::arraizator($page->content_blocks);
-        $allImageUuids = $this->extractImageUuidsFromContentBlocks($contentBlocks);
+        $allImageUuids = ImageKostil::contentizator($contentBlocks);
 
         foreach ($allImageUuids as $imageUuid) {
             $media = Media::where('uuid', $imageUuid)->first();
@@ -53,33 +47,6 @@ class PageObserver
                 $media->delete();
             }
         }
-    }
-
-    protected function extractImageUuidsFromContentBlocks($contentBlocks): array
-    {
-        $contentBlocks =  ImageKostil::arraizator($contentBlocks);
-
-        if (!$contentBlocks) {
-            return [];
-        }
-
-        $imageUuids = [];
-
-        foreach ($contentBlocks as $block) {
-            $data = Arr::get($block, 'data', []);
-            if (isset($data['image'])) {
-                $imageUuids[] = $data['image'];
-            }
-            if (isset($data['call_to_action'])) {
-                foreach ($data['call_to_action'] as $cta) {
-                    if (isset($cta['image'])) {
-                        $imageUuids[] = $cta['image'];
-                    }
-                }
-            }
-        }
-
-        return $imageUuids;
     }
 
     public function created(Page $page): void

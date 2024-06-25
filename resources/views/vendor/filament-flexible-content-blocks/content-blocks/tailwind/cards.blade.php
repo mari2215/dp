@@ -1,19 +1,12 @@
-<div class=" {{ $getBackgroundColourClass() }}">
+<div class="{{ $getBackgroundColourClass() }}">
     <div class="container">
         @if ($title)
             <h2>{{ $replaceParameters($title) }}</h2>
         @endif
-        <div @class([
-            'grid gap-4 ',
-            'sm:grid-cols-2 md:grid-cols-' . $gridColumns => $gridColumns > 1,
-        ])>
+        <div class="row">
             @foreach ($cards as $card)
-                @php
-                    /* @var \Statikbe\FilamentFlexibleContentBlocks\Filament\Form\Fields\Blocks\Data\CardData $card */
-                @endphp
-
                 <x-flexible-card :data="$card">
-                    {!! $getCardImageMedia($card->imageId, $card->title, false, ['class' => 'w-full']) !!}
+                    {!! $getCardImageMedia($card->imageId, $card->title, false, ['class' => '']) !!}
                 </x-flexible-card>
             @endforeach
         </div>

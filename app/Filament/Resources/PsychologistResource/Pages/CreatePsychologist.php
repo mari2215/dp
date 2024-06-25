@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\PsychologistResource\Pages;
 
 use Filament\Actions;
+use App\Models\Psychologist;
+use Filament\Pages\Actions\Action;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\TextInput;
@@ -23,7 +25,20 @@ class CreatePsychologist extends CreateRecord
     {
         return 'Створити персональні дані';
     }
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('form-fake-filler')
+                ->label('Заповнити форму')
+                ->icon('heroicon-o-sparkles')
+                ->color('info')
+                ->action(function (self $livewire): void {
+                    $data = Psychologist::factory()->make()->toArray();
 
+                    $livewire->form->fill($data);
+                })->visible(fn () => app()->environment('local')),
+        ];
+    }
     public function hasSkippableSteps(): bool
     {
         return true;
@@ -39,7 +54,6 @@ class CreatePsychologist extends CreateRecord
                         ->maxLength(255)
                         ->label(__('Імя')),
                     TinyEditor::make('title')
-                        ->maxLength(255)
                         ->label(__('Заголовок')),
                     TinyEditor::make('subtitle')
                         ->label(__('Опис'))

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Booking;
 use App\Models\Category;
+use App\Models\MainPage;
 use App\Models\Psychologist;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\App;
@@ -48,6 +49,9 @@ class AppServiceProvider extends ServiceProvider
                     view()->composer('source.partials.footer', function ($view) use ($globalVariables) {
                         $view->with($globalVariables);
                     });
+                    view()->composer('source.event', function ($view) use ($globalVariables) {
+                        $view->with($globalVariables);
+                    });
                 }
             }
 
@@ -66,6 +70,14 @@ class AppServiceProvider extends ServiceProvider
 
                 view()->composer(['source.partials.header', 'profile.edit'], function ($view) use ($bookings) {
                     $view->with('bookings', $bookings);
+                });
+            }
+
+            if (Schema::hasTable('main_pages')) {
+                $pageInfo = MainPage::firstOrCreate();
+
+                view()->composer('welcome', function ($view) use ($pageInfo) {
+                    $view->with('pageInfo', $pageInfo);
                 });
             }
         } catch (\Exception $e) {

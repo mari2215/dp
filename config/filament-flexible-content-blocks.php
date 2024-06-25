@@ -41,6 +41,8 @@ return [
         TextBlock::class,
         ImageBlock::class,
         TextImageBlock::class,
+        CardsBlock::class,
+        VideoBlock::class,
     ],
 
     /*
@@ -117,11 +119,11 @@ return [
             '4:3',
             '1:1',
         ],
-        'mode' => 1, // see https://github.com/fengyuanchen/cropperjs#viewmode
+        'mode' => 0, // see https://github.com/fengyuanchen/cropperjs#viewmode
         'empty_fill_colour' => null,  // e.g. #000000
         'viewport' => [
-            'width' => 1920,
-            'height' => 1080,
+            // 'width' => 1000,
+            // 'height' => 100,
         ],
     ],
 

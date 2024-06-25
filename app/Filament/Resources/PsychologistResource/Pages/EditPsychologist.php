@@ -61,7 +61,6 @@ class EditPsychologist extends EditRecord
                         ->maxLength(255)
                         ->label(__('Імя')),
                     TinyEditor::make('title')
-                        ->maxLength(255)
                         ->label(__('Заголовок')),
                     TinyEditor::make('subtitle')
                         ->label(__('Опис'))

@@ -9,7 +9,7 @@
                 <div class=" col-lg-9   mb-5 mb-lg-0">
                     <article>
                         <div class="post-slider mb-4">
-                            <img src="https://picsum.photos/600/200" class="card-img" alt="post-thumb">
+                            <img src="https://picsum.photos/600/150" class="card-img" alt="post-thumb">
                         </div>
 
                         <h1 class="h2">{{ $event->name }}</h1>
@@ -140,6 +140,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @if (isset($psychologist->instagram) ||
+                            isset($psychologist->telegram) ||
+                            isset($psychologist->viber) ||
+                            isset($psychologist->facebook))
+                        <div class="widget">
+                            <h5 class="widget-title"><span>Для підтвердження бронювання установіть контакт з
+                                    психологом</span></h5>
+                            <ul class="list-inline widget-social">
+                                @if (isset($psychologist->facebook))
+                                    <li class="list-inline-item"><a href="{{ $facebook }}"><i
+                                                class="ti-facebook"></i></a></li>
+                                @endif
+                                @if (isset($psychologist->instagram))
+                                    <li class="list-inline-item"><a href="{{ $instagram }}"><i
+                                                class="ti-instagram"></i></a></li>
+                                @endif
+                                @if (isset($psychologist->viber))
+                                    <li class="list-inline-item"><a href="{{ $viber }}"><i
+                                                class="bi bi-whatsapp"></i></a></li>
+                                @endif
+                                @if (isset($psychologist->facebook))
+                                    <li class="list-inline-item"><a href="{{ $telegram }}"><i
+                                                class="bi bi-telegram"></i></a></li>
+                                @endif
+                            </ul>
+                        </div>
+                    @endif
                     <form method="POST" action="{{ url('book/' . $event->id) }}" id="comment-form">
                         @csrf
                         <div class="row">
@@ -153,9 +180,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

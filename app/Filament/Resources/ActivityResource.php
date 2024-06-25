@@ -164,7 +164,7 @@ class ActivityResource extends Resource
     public static function getGlobalSearchResultDetails($model): array
     {
         return [
-            'Категорія' => $model->category->title,
+            'Категорія' => $model->category ? $model->category->title : 'Категорія не вказана',
         ];
     }
 }

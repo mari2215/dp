@@ -93,9 +93,14 @@
 
                         <?php
                         $pages = App\Models\Page::where(function ($query) {
-                            $query->where('publishing_ends_at', '>=', now())->orWhere(function ($query) {
-                                $query->whereNull('publishing_ends_at')->where('publishing_begins_at', '<=', now());
-                            });
+                            $query
+                                ->where('publishing_ends_at', '>=', now())
+                                ->orWhere(function ($query) {
+                                    $query->whereNull('publishing_ends_at')->where('publishing_begins_at', '<=', now());
+                                })
+                                ->orWhere(function ($query) {
+                                    $query->whereNull('publishing_begins_at');
+                                });
                         })->get(); ?>
 
                         @if (count($pages) > 0)
@@ -129,7 +134,11 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                 @auth
+
                                     <a class="dropdown-item" href="/profile">Профіль</a>
+                                    @if (Auth::user()->email === 'ekopersonal@ukr.net')
+                                        <a href="/admin" class="dropdown-item">Адмін</a>
+                                    @endif
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <a class="dropdown-item" href="route('logout')"
@@ -139,6 +148,7 @@
                                         </a>
                                     </form>
                                 @endauth
+
                                 @guest
                                     @if (Route::has('login'))
                                         <a href="{{ route('login') }}" class="dropdown-item">Авторизуватись</a>
@@ -180,6 +190,9 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     @auth
                                         <a class="dropdown-item" href="/profile">Профіль</a>
+                                        @if (Auth::user()->email === 'ekopersonal@ukr.net')
+                                            <a href="/admin" class="dropdown-item">Адмін</a>
+                                        @endif
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <a class="dropdown-item" href="route('logout')"

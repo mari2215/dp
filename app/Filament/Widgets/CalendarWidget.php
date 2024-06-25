@@ -21,6 +21,7 @@ use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 class CalendarWidget extends FullCalendarWidget
 {
     public Model | string | null $model = Event::class;
+
     public function fetchEvents(array $fetchInfo): array
     {
         return Event::query()

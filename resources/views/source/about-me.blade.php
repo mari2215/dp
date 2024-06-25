@@ -3,9 +3,8 @@
 @section('content')
     @include('source.partials.blocks.page-header', ['title' => 'Про мене', 'page' => 'Про мене'])
 
-    <div class="container">
+    <div class="container mb-3">
         <div class="row align-items-center justify-content-center">
-
             <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
                 @if (isset($psychologist->image))
                     <div class="post-slider">
@@ -25,14 +24,14 @@
                     </div>
                 @endif
             </div>
-            <div class="container m-auto">
-                @if (isset($psychologist->title))
+            <div class="container col-md-10 m-auto pt-4">
+                @if (isset($psychologist->subtitle))
                     <p>{!! $psychologist->subtitle !!}</p>
                 @endif
             </div>
         </div>
     </div>
-    @if (count($qualifications) > 0)
+    @if (isset($qualifications))
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mb-5">
@@ -40,10 +39,11 @@
                 </div>
                 @foreach ($qualifications as $qualification)
                     <div class="col-lg-3 col-sm-6 text-center mb-4">
-
-                        <li class="list-inline-item">
-                            <img class="img-fluid" src="{{ asset($qualification->image) }}" alt="Image Description">
-                        </li>
+                        @if (isset($qualification->image))
+                            <li class="list-inline-item">
+                                <img class="img-fluid" src="{{ asset($qualification->image) }}" alt="Image Description">
+                            </li>
+                        @endif
 
                         <h3 class="border-bottom pb-3 mb-3 mx-2">{{ $qualification->degree }}</h3>
                         <p class="mb-2">
@@ -61,7 +61,7 @@
             </div>
         </div>
     @endif
-    @if (isset($$psychologist->video_url))
+    @if (isset($psychologist->video_url))
         <section class="section-sm">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
@@ -83,7 +83,7 @@
             </div>
         </section>
     @endif
-    @if (isset($$psychologist->video_url))
+    @if (isset($psychologist->video_url))
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">

@@ -56,6 +56,9 @@ Route::post('/reject-booking', [HomeController::class, 'reject'])->name('booking
 Route::get('/page/{page}', [\App\Http\Controllers\PageController::class, 'index'])->name('page_index');
 
 
+
+Route::get('/welcome/{page}/{categories}', [HomeController::class, 'welcome']);
+
 require __DIR__ . '/auth.php';
 
 // Route::any(

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 
 class ImageKostil
 {
@@ -24,9 +25,8 @@ class ImageKostil
                 $image = '';
             }
 
-            if ($flag) {
+            if ($flag)
                 $image .= substr($text, $i, 1);
-            }
         }
         return $img_arr;
     }
@@ -43,17 +43,15 @@ class ImageKostil
                 $newText .= 'img class="img-fluid" src="';
             }
 
-            if (substr($text, $i, 5) == '" alt') {
+            if (substr($text, $i, 5) == '" alt')
                 $flag = false;
-            }
 
-            if ($flag) {
+            if ($flag)
                 $newText .= substr($text, $i, 1);
-            } else {
+            else
                 $newText .= substr($text, $i, 1);
-            }
         }
-        $newText .= substr($text, $i); // Append remaining part of the text
+        $newText .= substr($text, $i);
         return $newText;
     }
 
@@ -86,5 +84,28 @@ class ImageKostil
         if (Storage::disk('local')->exists($directory)) {
             Storage::disk('local')->deleteDirectory($directory);
         }
+    }
+
+    public static function contentizator($contentBlocks): array
+    {
+        $contentBlocks = ImageKostil::arraizator($contentBlocks);
+        if (!$contentBlocks) return [];
+
+        $imageUuids = [];
+        foreach ($contentBlocks as $block) {
+            $data = Arr::get($block, 'data', []);
+            if (isset($data['image']))
+                $imageUuids[] = $data['image'];
+
+            if (isset($data['call_to_action'])) {
+                foreach ($data['call_to_action'] as $cta) {
+                    if (isset($cta['image'])) {
+                        $imageUuids[] = $cta['image'];
+                    }
+                }
+            }
+        }
+
+        return $imageUuids;
     }
 }
